@@ -1,7 +1,7 @@
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 html {
@@ -9,10 +9,10 @@ html {
 }
 
 body {
-    background: #070707;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
+    font-family: "Inter", Arial, sans-serif;
+    background: #ffffff;
+    color: #111111;
+    line-height: 1.5;
 }
 
 a {
@@ -20,28 +20,30 @@ a {
     text-decoration: none;
 }
 
-
-/* =========================
-   NAVBAR
-========================= */
-
-.topbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 76px;
-    z-index: 1000;
-
-    background: rgba(5, 5, 5, 0.92);
-    border-bottom: 1px solid rgba(255, 30, 30, 0.2);
-
-    backdrop-filter: blur(14px);
+.container {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
 }
 
-.nav-container {
-    width: min(1400px, 92%);
-    height: 100%;
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid #e8e8e8;
+
+    backdrop-filter: blur(12px);
+}
+
+.header-inner {
+    width: min(1180px, calc(100% - 40px));
+    min-height: 70px;
     margin: auto;
 
     display: flex;
@@ -49,56 +51,134 @@ a {
     justify-content: space-between;
 }
 
-.logo {
-    font-family: "Orbitron", sans-serif;
-    font-size: 19px;
-    font-weight: 900;
-    letter-spacing: 1px;
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
 }
 
-.logo span,
-.footer-logo span {
-    color: #ff2020;
-}
-
-.desktop-nav {
-    display: none;
-    gap: 38px;
-}
-
-.desktop-nav a {
-    font-family: "Orbitron", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #aaa;
-    transition: 0.25s;
-}
-
-.desktop-nav a:hover,
-.desktop-nav a.active {
-    color: #ff2020;
-}
-
-.nav-button {
+.brand-mark {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    padding: 12px 18px;
+    width: 35px;
+    height: 35px;
 
-    background: #e91515;
+    border-radius: 9px;
 
-    font-family: "Orbitron", sans-serif;
-    font-size: 10px;
+    background: #d71920;
+    color: white;
+
+    font-size: 11px;
     font-weight: 800;
-
-    transition: 0.25s;
 }
 
-.nav-button:hover {
-    background: #ff3535;
-    transform: translateY(-2px);
+.brand-name {
+    white-space: nowrap;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.navigation {
+    display: none;
+
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+
+    padding: 15px 20px 20px;
+
+    background: white;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.navigation.open {
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation a {
+    padding: 14px 5px;
+
+    color: #666;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.navigation a.active,
+.navigation a:hover {
+    color: #d71920;
+}
+
+.menu-button {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    background: #f5f5f5;
+    border: 0;
+    border-radius: 10px;
+}
+
+.menu-button span {
+    width: 18px;
+    height: 2px;
+    background: #111;
+
+    transition: 0.2s;
+}
+
+.menu-button.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-button.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-button.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* =========================
+   SEASON BAR
+========================= */
+
+.season-bar {
+    border-bottom: 1px solid #eeeeee;
+    background: #fafafa;
+}
+
+.season-bar .container {
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+}
+
+.season-bar span {
+    font-size: 11px;
+    font-weight: 700;
+    color: #777;
+    letter-spacing: 1px;
 }
 
 
@@ -107,390 +187,178 @@ a {
 ========================= */
 
 .hero {
-    position: relative;
-    min-height: 720px;
-
-    display: flex;
-    align-items: center;
-
-    padding: 120px 6% 80px;
+    padding: 100px 0 90px;
 
     background:
         radial-gradient(
-            circle at 75% 40%,
-            rgba(255, 25, 25, 0.45),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 20% 70%,
-            rgba(120, 0, 0, 0.35),
-            transparent 35%
-        ),
-        linear-gradient(
-            135deg,
-            #090000 0%,
-            #180000 45%,
-            #3b0505 100%
-        );
-
-    overflow: hidden;
-}
-
-.hero::before {
-    content: "";
-    position: absolute;
-
-    width: 600px;
-    height: 600px;
-
-    right: -200px;
-    top: 80px;
-
-    border: 1px solid rgba(255, 40, 40, 0.15);
-    border-radius: 50%;
-
-    box-shadow:
-        0 0 100px rgba(255, 0, 0, 0.12),
-        inset 0 0 100px rgba(255, 0, 0, 0.08);
-}
-
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,0.8),
-            rgba(0,0,0,0.2)
+            circle at 50% 20%,
+            rgba(215, 25, 32, 0.06),
+            transparent 40%
         );
 }
 
-.hero-content {
-    position: relative;
-    z-index: 2;
-
-    width: min(850px, 100%);
+.hero-container {
+    text-align: center;
 }
 
-.season-label {
-    margin-bottom: 22px;
+.hero-label {
+    margin-bottom: 20px;
 
-    font-family: "Orbitron", sans-serif;
-    font-size: 12px;
+    color: #d71920;
+
+    font-size: 11px;
     font-weight: 800;
-    letter-spacing: 3px;
-
-    color: #ff3b3b;
-}
-
-.season-label span {
-    color: #666;
-    margin: 0 8px;
+    letter-spacing: 2px;
 }
 
 .hero h1 {
-    font-family: "Orbitron", sans-serif;
-    font-size: clamp(45px, 11vw, 105px);
-    line-height: 0.88;
-    font-weight: 900;
+    font-size: clamp(42px, 10vw, 92px);
+    line-height: 0.98;
     letter-spacing: -4px;
-
-    text-shadow:
-        0 0 30px rgba(255, 0, 0, 0.2);
+    font-weight: 800;
 }
 
 .hero h1 span {
-    color: #ff1b1b;
+    color: #d71920;
 }
 
-.hero p {
-    max-width: 620px;
+.hero-subtitle {
+    margin-top: 25px;
 
-    margin-top: 30px;
-
-    color: #c0c0c0;
+    color: #777;
 
     font-size: 16px;
-    line-height: 1.7;
 }
 
-.hero-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+.hero-date {
+    margin-top: 22px;
 
-    margin-top: 35px;
+    color: #aaa;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
-.primary-button,
-.secondary-button {
-    min-height: 52px;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+/* =========================
+   ANNOUNCEMENT
+========================= */
 
-    padding: 0 22px;
+.announcement-section {
+    padding: 20px 0 100px;
+}
 
-    font-family: "Orbitron", sans-serif;
-    font-size: 11px;
+.section-label,
+.small-title {
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: #999;
+
+    font-size: 10px;
     font-weight: 800;
-    letter-spacing: 0.5px;
-
-    transition: 0.25s;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 
-.primary-button {
-    background: #ed1818;
-    box-shadow: 0 10px 35px rgba(255, 0, 0, 0.2);
+.announcement-card {
+    padding: 30px;
+
+    border: 1px solid #e8e8e8;
+    border-radius: 14px;
+
+    background: #fafafa;
 }
 
-.primary-button span {
-    margin-left: 25px;
-    font-size: 18px;
-}
-
-.primary-button:hover {
-    background: #ff3333;
-    transform: translateY(-3px);
-}
-
-.secondary-button {
-    border: 1px solid #444;
-    background: rgba(0, 0, 0, 0.4);
-}
-
-.secondary-button:hover {
-    border-color: #ff2020;
-    color: #ff2020;
-}
-
-.hero-scroll {
-    position: absolute;
-    bottom: 30px;
-    left: 6%;
-
+.announcement-top {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
 
-    font-family: "Orbitron", sans-serif;
-    font-size: 8px;
-    letter-spacing: 2px;
-    color: #777;
-}
+    margin-bottom: 20px;
 
-.hero-scroll span {
-    width: 35px;
-    height: 1px;
-    background: #ff2020;
-}
+    color: #999;
 
-
-/* =========================
-   STATS
-========================= */
-
-.stats-section {
-    background: #0d0d0d;
-    border-top: 1px solid #222;
-    border-bottom: 1px solid #222;
-}
-
-.stats-container {
-    width: min(1100px, 90%);
-    margin: auto;
-
-    min-height: 130px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.stat {
-    text-align: center;
-}
-
-.stat strong {
-    display: block;
-
-    font-family: "Orbitron", sans-serif;
-    font-size: clamp(28px, 5vw, 45px);
-    color: #fff;
-}
-
-.stat span {
-    display: block;
-    margin-top: 7px;
-
-    font-family: "Orbitron", sans-serif;
     font-size: 9px;
-    letter-spacing: 2px;
-    color: #777;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
-.stat-line {
-    width: 1px;
-    height: 45px;
-    background: #333;
+.announcement-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #d71920;
+}
+
+.announcement-card h2 {
+    font-size: clamp(24px, 5vw, 36px);
+    line-height: 1.1;
+}
+
+.announcement-card p {
+    max-width: 700px;
+
+    margin-top: 14px;
+
+    color: #666;
+    font-size: 14px;
+}
+
+.announcement-date {
+    margin-top: 25px;
+
+    color: #aaa;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 
 /* =========================
-   SECTIONS
+   CONTENT
 ========================= */
 
-.section {
-    width: min(1250px, 88%);
-    margin: auto;
-    padding: 120px 0;
+.content-section,
+.simple-section {
+    padding: 90px 0;
+
+    border-top: 1px solid #eeeeee;
 }
 
-.section-heading {
+.section-header {
     display: flex;
     align-items: flex-end;
+    justify-content: space-between;
     gap: 20px;
 
-    margin-bottom: 55px;
+    margin-bottom: 35px;
 }
 
-.section-heading > span {
-    font-family: "Orbitron", sans-serif;
+.section-header h2 {
+    font-size: clamp(28px, 6vw, 45px);
+    line-height: 1;
+    letter-spacing: -1.5px;
+}
+
+.view-all {
+    color: #d71920;
+
     font-size: 12px;
-    color: #ff2020;
-    padding-bottom: 8px;
+    font-weight: 700;
 }
 
-.section-heading small {
-    font-family: "Orbitron", sans-serif;
+.coming {
+    color: #aaa;
+
     font-size: 9px;
-    letter-spacing: 3px;
-    color: #777;
-}
-
-.section-heading h2 {
-    margin-top: 5px;
-
-    font-family: "Orbitron", sans-serif;
-    font-size: clamp(30px, 5vw, 55px);
-    font-weight: 900;
-}
-
-.heading-button {
-    margin-left: auto;
-
-    font-family: "Orbitron", sans-serif;
-    font-size: 10px;
     font-weight: 800;
-    color: #ff2020;
-
-    transition: 0.2s;
-}
-
-.heading-button:hover {
-    color: #fff;
-}
-
-
-/* =========================
-   INTRO
-========================= */
-
-.intro-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-}
-
-.intro-text {
-    max-width: 700px;
-}
-
-.large-text {
-    font-size: clamp(21px, 3vw, 32px) !important;
-    color: #eee !important;
-}
-
-.intro-text p {
-    color: #888;
-    line-height: 1.8;
-    font-size: 15px;
-    margin-bottom: 25px;
-}
-
-.intro-text b {
-    color: #fff;
-}
-
-.text-button {
-    display: inline-block;
-
-    margin-top: 10px;
-
-    font-family: "Orbitron", sans-serif;
-    font-size: 10px;
-    font-weight: 800;
-
-    color: #ff2020;
-}
-
-.intro-card {
-    min-height: 260px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: relative;
-
-    background:
-        linear-gradient(
-            135deg,
-            #180000,
-            #080808
-        );
-
-    border: 1px solid #321010;
-
-    overflow: hidden;
-}
-
-.card-number {
-    position: absolute;
-
-    font-family: "Orbitron", sans-serif;
-    font-size: 170px;
-    font-weight: 900;
-
-    color: rgba(255, 20, 20, 0.08);
-}
-
-.card-info {
-    position: relative;
-    z-index: 2;
-
-    text-align: center;
-}
-
-.card-info span {
-    display: block;
-
-    font-family: "Orbitron", sans-serif;
-    font-size: 10px;
-    letter-spacing: 4px;
-    color: #777;
-}
-
-.card-info strong {
-    display: block;
-
-    margin-top: 5px;
-
-    font-family: "Orbitron", sans-serif;
-    font-size: 60px;
-    color: #ff2020;
+    letter-spacing: 1px;
 }
 
 
@@ -498,273 +366,200 @@ a {
    PLAYERS
 ========================= */
 
-.players-section {
-    padding-top: 60px;
-}
-
-.players-grid {
+.players-preview {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 12px;
 }
 
-.player-card {
-    background: #111;
-    border: 1px solid #242424;
-
-    transition: 0.3s;
-
+.player-preview-card {
     overflow: hidden;
+
+    border: 1px solid #e7e7e7;
+    border-radius: 13px;
+
+    background: #fff;
+
+    transition: 0.2s;
 }
 
-.player-card:hover {
-    transform: translateY(-6px);
-    border-color: #d71919;
-
-    box-shadow:
-        0 15px 50px rgba(255, 0, 0, 0.12);
+.player-preview-card:hover {
+    transform: translateY(-3px);
+    border-color: #d71920;
 }
 
-.player-image {
-    position: relative;
-
-    aspect-ratio: 1 / 1;
+.player-avatar {
+    height: 180px;
 
     display: flex;
-    justify-content: center;
     align-items: flex-end;
-
-    background:
-        radial-gradient(
-            circle at 50% 70%,
-            rgba(255, 20, 20, 0.25),
-            transparent 60%
-        ),
-        #171717;
+    justify-content: center;
 
     overflow: hidden;
+
+    background: #f3f3f3;
 }
 
-.player-image img {
-    width: 75%;
-    height: 75%;
+.player-avatar img {
+    width: 130px;
+    height: 130px;
 
     object-fit: contain;
-
     image-rendering: pixelated;
-
-    transition: 0.3s;
 }
 
-.player-card:hover .player-image img {
-    transform: scale(1.08);
+.player-preview-info {
+    padding: 16px;
 }
 
-.player-status {
-    position: absolute;
-    top: 12px;
-    left: 12px;
+.player-preview-info > span {
+    color: #999;
 
-    padding: 6px 8px;
-
-    font-family: "Orbitron", sans-serif;
-    font-size: 7px;
-    font-weight: 900;
-    letter-spacing: 1px;
-
-    background: #111;
-}
-
-.player-status.levend {
-    color: #48d26c;
-    border: 1px solid #276d3a;
-}
-
-.player-status.dood {
-    color: #ff3333;
-    border: 1px solid #7d2020;
-}
-
-.player-card-info {
-    padding: 18px;
-}
-
-.player-card-info > span {
-    font-family: "Orbitron", sans-serif;
-    font-size: 8px;
-    color: #777;
+    font-size: 9px;
+    font-weight: 700;
     text-transform: uppercase;
 }
 
-.player-card-info h3 {
-    margin: 6px 0 15px;
+.player-preview-info h3 {
+    margin: 4px 0 10px;
 
-    font-family: "Orbitron", sans-serif;
-    font-size: 20px;
+    font-size: 19px;
 }
 
-.player-stats {
+.player-status {
     display: flex;
-    gap: 15px;
+    align-items: center;
+    gap: 6px;
 
     color: #777;
+
+    font-size: 11px;
+}
+
+.player-status i {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+}
+
+.player-status i.levend {
+    background: #2daa58;
+}
+
+.player-status i.dood {
+    background: #d71920;
+}
+
+
+/* =========================
+   SIMPLE CARDS
+========================= */
+
+.empty-card {
+    min-height: 150px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 30px;
+
+    border: 1px solid #e7e7e7;
+    border-radius: 14px;
+
+    background: #fafafa;
+}
+
+.empty-card strong {
+    font-size: 48px;
+    font-weight: 800;
+}
+
+.empty-card span {
+    color: #888;
     font-size: 12px;
 }
 
 
-/* =========================
-   TIMELINE
-========================= */
-
-.timeline-section {
-    border-top: 1px solid #181818;
+.statistics-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
 }
 
-.timeline {
-    position: relative;
-
-    max-width: 900px;
-    margin-left: 20px;
-
-    border-left: 1px solid #333;
-}
-
-.timeline-item {
-    position: relative;
-
-    padding: 0 0 65px 45px;
-}
-
-.timeline-item:last-child {
-    padding-bottom: 0;
-}
-
-.timeline-dot {
-    position: absolute;
-
-    width: 12px;
-    height: 12px;
-
-    left: -6px;
-    top: 5px;
-
-    border-radius: 50%;
-    background: #333;
-    border: 3px solid #070707;
-}
-
-.timeline-item.active .timeline-dot {
-    background: #ff2020;
-    box-shadow: 0 0 18px rgba(255, 0, 0, 0.7);
-}
-
-.timeline-date {
-    margin-bottom: 10px;
-
-    font-family: "Orbitron", sans-serif;
-    font-size: 9px;
-    letter-spacing: 2px;
-    color: #ff2020;
-}
-
-.timeline-content {
+.stat-card {
     padding: 25px;
 
-    background: #101010;
-    border: 1px solid #222;
+    border: 1px solid #e7e7e7;
+    border-radius: 14px;
+
+    background: #fafafa;
 }
 
-.timeline-content span {
-    font-family: "Orbitron", sans-serif;
-    font-size: 8px;
-    color: #777;
+.stat-card span {
+    color: #999;
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
-.timeline-content h3 {
-    margin: 8px 0;
+.stat-card strong {
+    display: block;
 
-    font-family: "Orbitron", sans-serif;
-    font-size: 20px;
-}
+    margin-top: 8px;
 
-.timeline-content p {
-    color: #777;
-    line-height: 1.6;
-    font-size: 13px;
+    font-size: 42px;
 }
 
 
 /* =========================
-   DISCORD
+   FEATURE
 ========================= */
 
-.discord-section {
-    padding: 80px 6%;
+.feature-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #210000,
-            #080808
-        );
+    padding: 25px;
 
-    border-top: 1px solid #361010;
-    border-bottom: 1px solid #361010;
+    border: 1px solid #e7e7e7;
+    border-radius: 14px;
+
+    background: #fafafa;
 }
 
-.discord-inner {
-    width: min(1250px, 100%);
-    margin: auto;
+.feature-icon {
+    width: 50px;
+    height: 50px;
+
+    flex-shrink: 0;
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 40px;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #111;
+    color: #fff;
+
+    font-size: 17px;
+    font-weight: 800;
 }
 
-.discord-small {
-    font-family: "Orbitron", sans-serif;
-    font-size: 9px;
-    letter-spacing: 3px;
-    color: #ff2020;
+.feature-card h3 {
+    font-size: 18px;
 }
 
-.discord-inner h2 {
-    margin-top: 10px;
-
-    font-family: "Orbitron", sans-serif;
-    font-size: clamp(28px, 5vw, 50px);
-    line-height: 1;
-}
-
-.discord-inner p {
-    margin-top: 18px;
+.feature-card p {
+    margin-top: 4px;
 
     color: #888;
-    line-height: 1.6;
-}
 
-.discord-button {
-    flex-shrink: 0;
-
-    padding: 18px 28px;
-
-    background: #ed1818;
-
-    font-family: "Orbitron", sans-serif;
-    font-size: 10px;
-    font-weight: 900;
-
-    transition: 0.25s;
-}
-
-.discord-button span {
-    margin-left: 20px;
-}
-
-.discord-button:hover {
-    background: #ff3333;
-    transform: translateY(-3px);
+    font-size: 13px;
 }
 
 
@@ -773,33 +568,41 @@ a {
 ========================= */
 
 footer {
-    background: #050505;
+    margin-top: 50px;
+
+    border-top: 1px solid #eeeeee;
 }
 
 .footer-inner {
-    width: min(1250px, 88%);
-    min-height: 100px;
-    margin: auto;
+    min-height: 130px;
 
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-brand {
+    display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 9px;
 
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.footer-links {
+    display: flex;
     gap: 20px;
+
+    color: #777;
+    font-size: 11px;
 }
 
-.footer-logo {
-    font-family: "Orbitron", sans-serif;
-    font-size: 13px;
-    font-weight: 900;
-}
-
-.footer-season,
-.footer-copy {
-    font-family: "Orbitron", sans-serif;
-    font-size: 8px;
-    letter-spacing: 1px;
-    color: #555;
+.copyright {
+    color: #aaa;
+    font-size: 10px;
 }
 
 
@@ -807,82 +610,91 @@ footer {
    TABLET
 ========================= */
 
-@media (min-width: 600px) {
+@media (min-width: 650px) {
 
-    .hero {
-        min-height: 780px;
-    }
-
-    .players-grid {
+    .players-preview {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    .intro-grid {
-        grid-template-columns: 1.5fr 1fr;
-        align-items: center;
+    .statistics-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 
+    .footer-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
 
 /* =========================
-   PC / DESKTOP
+   PC
 ========================= */
 
 @media (min-width: 900px) {
 
-    .desktop-nav {
-        display: flex;
-    }
-
-    .nav-button {
+    .menu-button {
         display: none;
     }
 
+    .navigation {
+        position: static;
+
+        display: flex;
+        flex-direction: row;
+
+        width: auto;
+
+        padding: 0;
+
+        gap: 30px;
+
+        border: 0;
+    }
+
+    .navigation a {
+        padding: 5px 0;
+
+        border: 0;
+
+        font-size: 12px;
+    }
+
     .hero {
-        min-height: 850px;
-
-        padding-left: 8%;
-        padding-right: 8%;
+        padding: 155px 0 135px;
     }
 
-    .hero-content {
-        padding-top: 40px;
+    .hero h1 {
+        font-size: 90px;
     }
 
-    .hero p {
-        font-size: 17px;
+    .hero-subtitle {
+        font-size: 18px;
     }
 
-    .players-grid {
+    .announcement-card {
+        padding: 45px;
+    }
+
+    .players-preview {
         grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
+        gap: 18px;
     }
 
-    .section {
-        padding-top: 150px;
-        padding-bottom: 150px;
+    .player-avatar {
+        height: 230px;
     }
 
-    .intro-card {
-        min-height: 350px;
+    .player-avatar img {
+        width: 165px;
+        height: 165px;
     }
 
-    .timeline {
-        margin-left: 100px;
+    .content-section,
+    .simple-section {
+        padding: 110px 0;
     }
-
-    .timeline-item {
-        display: grid;
-        grid-template-columns: 130px 1fr;
-        column-gap: 40px;
-        padding-left: 45px;
-    }
-
-    .timeline-date {
-        padding-top: 25px;
-    }
-
 }
 
 
@@ -890,19 +702,17 @@ footer {
    LARGE PC
 ========================= */
 
-@media (min-width: 1300px) {
+@media (min-width: 1200px) {
 
     .hero {
-        padding-left: calc((100% - 1250px) / 2);
-        padding-right: calc((100% - 1250px) / 2);
+        padding: 190px 0 160px;
     }
 
     .hero h1 {
-        font-size: 110px;
+        font-size: 105px;
     }
 
-    .section {
-        width: min(1250px, 88%);
+    .announcement-section {
+        padding-bottom: 120px;
     }
-
 }
