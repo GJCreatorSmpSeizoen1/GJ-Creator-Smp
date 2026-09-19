@@ -33,7 +33,9 @@
 
 <main>
 
+    <!-- ========================= -->
     <!-- HERO -->
+    <!-- ========================= -->
 
     <section id="home" class="hero">
 
@@ -70,7 +72,9 @@
     </section>
 
 
+    <!-- ========================= -->
     <!-- SEIZOEN -->
+    <!-- ========================= -->
 
     <section id="seizoen" class="section">
 
@@ -84,6 +88,7 @@
             Ontdek de spelers, gebeurtenissen en het verhaal
             van dit seizoen.
         </p>
+
 
         <div class="cards">
 
@@ -124,9 +129,11 @@
     </section>
 
 
+    <!-- ========================= -->
     <!-- SPELERS -->
+    <!-- ========================= -->
 
-    <section id="spelers" class="section players-section">
+    <section id="spelers" class="section">
 
         <div class="section-title">
             <span>02</span>
@@ -134,151 +141,23 @@
         </div>
 
         <p class="section-text">
-            Ontdek de spelers van GJ Creator SMP Seizoen 1
-            en bekijk hun huidige status en statistieken.
+            Bekijk alle deelnemers van GJ Creator SMP Seizoen 1.
+            Klik op een speler om het volledige profiel te bekijken.
         </p>
 
 
-        <div class="players">
-
-
-            <!-- JORN -->
-
-            <div class="player-card">
-
-                <div class="player-top">
-
-                    <div class="player-skin">
-                        J
-                    </div>
-
-                    <div class="player-status alive">
-                        ● LEVEND
-                    </div>
-
-                </div>
-
-                <h3>Jorn</h3>
-
-                <p class="player-role">
-                    Creator
-                </p>
-
-                <div class="player-stats">
-
-                    <div>
-                        <strong>0</strong>
-                        <span>KILLS</span>
-                    </div>
-
-                    <div>
-                        <strong>0</strong>
-                        <span>DEATHS</span>
-                    </div>
-
-                </div>
-
-                <button class="profile-btn">
-                    Bekijk profiel
-                </button>
-
-            </div>
-
-
-            <!-- SEM -->
-
-            <div class="player-card">
-
-                <div class="player-top">
-
-                    <div class="player-skin">
-                        S
-                    </div>
-
-                    <div class="player-status alive">
-                        ● LEVEND
-                    </div>
-
-                </div>
-
-                <h3>Sem</h3>
-
-                <p class="player-role">
-                    Creator
-                </p>
-
-                <div class="player-stats">
-
-                    <div>
-                        <strong>0</strong>
-                        <span>KILLS</span>
-                    </div>
-
-                    <div>
-                        <strong>0</strong>
-                        <span>DEATHS</span>
-                    </div>
-
-                </div>
-
-                <button class="profile-btn">
-                    Bekijk profiel
-                </button>
-
-            </div>
-
-
-            <!-- SPELER 3 -->
-
-            <div class="player-card">
-
-                <div class="player-top">
-
-                    <div class="player-skin">
-                        ?
-                    </div>
-
-                    <div class="player-status alive">
-                        ● LEVEND
-                    </div>
-
-                </div>
-
-                <h3>Speler</h3>
-
-                <p class="player-role">
-                    Creator
-                </p>
-
-                <div class="player-stats">
-
-                    <div>
-                        <strong>0</strong>
-                        <span>KILLS</span>
-                    </div>
-
-                    <div>
-                        <strong>0</strong>
-                        <span>DEATHS</span>
-                    </div>
-
-                </div>
-
-                <button class="profile-btn">
-                    Bekijk profiel
-                </button>
-
-            </div>
-
-
+        <div id="players-container" class="players">
+            <!-- Spelers worden automatisch geladen -->
         </div>
 
     </section>
 
 
+    <!-- ========================= -->
     <!-- TIJDLIJN -->
+    <!-- ========================= -->
 
-    <section id="timeline" class="section timeline-section">
+    <section id="timeline" class="section">
 
         <div class="section-title">
             <span>03</span>
@@ -286,13 +165,11 @@
         </div>
 
         <p class="section-text">
-            De belangrijkste momenten van GJ Creator SMP
-            Seizoen 1.
+            De belangrijkste momenten van GJ Creator SMP Seizoen 1.
         </p>
 
 
         <div class="timeline">
-
 
             <div class="timeline-item">
 
@@ -310,8 +187,6 @@
 
                     <p>
                         GJ Creator SMP Seizoen 1 begint.
-                        De spelers betreden voor het eerst
-                        de wereld.
                     </p>
 
                 </div>
@@ -334,8 +209,7 @@
                     </h3>
 
                     <p>
-                        De eerste teams en allianties
-                        ontstaan op de server.
+                        De eerste teams en allianties ontstaan.
                     </p>
 
                 </div>
@@ -358,47 +232,23 @@
                     </h3>
 
                     <p>
-                        De End wordt geopend en spelers
-                        kunnen op zoek naar nieuwe loot.
+                        De End wordt geopend.
                     </p>
 
                 </div>
 
             </div>
-
-
-            <div class="timeline-item">
-
-                <div class="timeline-dot"></div>
-
-                <div class="timeline-content">
-
-                    <span class="timeline-date">
-                        LATER
-                    </span>
-
-                    <h3>
-                        MEER GEBEURTENISSEN
-                    </h3>
-
-                    <p>
-                        Nieuwe gebeurtenissen worden
-                        tijdens het seizoen toegevoegd.
-                    </p>
-
-                </div>
-
-            </div>
-
 
         </div>
 
     </section>
 
 
+    <!-- ========================= -->
     <!-- OVER -->
+    <!-- ========================= -->
 
-    <section id="over" class="section about">
+    <section class="section">
 
         <div class="section-title">
             <span>04</span>
@@ -428,6 +278,151 @@
     </p>
 
 </footer>
+
+
+<script>
+
+/* ================================================= */
+/*              SPELERS BEHEER                       */
+/* ================================================= */
+
+/*
+    HIER VOEG JE NIEUWE SPELERS TOE.
+
+    Je hoeft alleen een nieuw blok te kopiëren.
+
+    status:
+    "levend" = groene status
+    "dood"   = rode status
+*/
+
+const spelers = [
+
+    {
+        id: "jorn",
+        naam: "Jorn",
+        rol: "Creator",
+        status: "levend",
+        kills: 0,
+        deaths: 0,
+        skin: "https://mc-heads.net/avatar/Jorn/150"
+    },
+
+
+    {
+        id: "sem",
+        naam: "Sem",
+        rol: "Creator",
+        status: "levend",
+        kills: 0,
+        deaths: 0,
+        skin: "https://mc-heads.net/avatar/Sem/150"
+    },
+
+
+    /*
+        VOORBEELD NIEUWE SPELER
+
+        Kopieer dit blok om een speler toe te voegen.
+
+        {
+            id: "naam",
+            naam: "Naam",
+            rol: "Creator",
+            status: "levend",
+            kills: 0,
+            deaths: 0,
+            skin: "https://mc-heads.net/avatar/Naam/150"
+        }
+    */
+
+];
+
+
+/* ================================================= */
+/*              SPELERS OP WEBSITE                  */
+/* ================================================= */
+
+const container = document.getElementById("players-container");
+
+
+spelers.forEach(speler => {
+
+    const statusTekst =
+        speler.status === "levend"
+        ? "● LEVEND"
+        : "● DOOD";
+
+
+    const statusClass =
+        speler.status === "levend"
+        ? "alive"
+        : "dead";
+
+
+    const kaart = document.createElement("div");
+
+    kaart.className = "player-card";
+
+
+    kaart.innerHTML = `
+
+        <div class="player-top">
+
+            <img
+                class="player-skin-image"
+                src="${speler.skin}"
+                alt="${speler.naam}"
+                onerror="this.style.display='none';"
+            >
+
+            <div class="player-status ${statusClass}">
+                ${statusTekst}
+            </div>
+
+        </div>
+
+
+        <h3>
+            ${speler.naam}
+        </h3>
+
+
+        <p class="player-role">
+            ${speler.rol}
+        </p>
+
+
+        <div class="player-stats">
+
+            <div>
+                <strong>${speler.kills}</strong>
+                <span>KILLS</span>
+            </div>
+
+            <div>
+                <strong>${speler.deaths}</strong>
+                <span>DEATHS</span>
+            </div>
+
+        </div>
+
+
+        <a
+            class="profile-btn"
+            href="speler.html?id=${speler.id}"
+        >
+            Bekijk profiel
+        </a>
+
+    `;
+
+
+    container.appendChild(kaart);
+
+});
+
+</script>
 
 </body>
 </html>
