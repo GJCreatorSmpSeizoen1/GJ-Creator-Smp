@@ -1,363 +1,42 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Speler | GJ Creator SMP</title>
-
-    <link rel="stylesheet" href="style.css">
-
-</head>
-
-
-<body>
-
-
-<header class="navbar">
-
-    <div class="logo">
-        GJ <span>CREATOR SMP</span>
-    </div>
-
-
-    <nav>
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="index.html#seizoen">
-            Seizoen 1
-        </a>
-
-        <a href="index.html#spelers">
-            Spelers
-        </a>
-
-        <a href="index.html#timeline">
-            Tijdlijn
-        </a>
-
-    </nav>
-
-
-    <a class="discord-btn" href="#">
-        Discord
-    </a>
-
-</header>
-
-
-
-<main>
-
-<section class="profile-page">
-
-
-    <a
-        href="index.html#spelers"
-        class="back-btn"
-    >
-        ← Terug naar spelers
-    </a>
-
-
-
-    <div
-        id="profile-container"
-        class="profile-container"
-    >
-
-        Laden...
-
-    </div>
-
-
-</section>
-
-</main>
-
-
-
-<footer>
-
-    <div>
-
-        <strong>
-            GJ CREATOR SMP
-        </strong>
-
-        <p>
-            Seizoen 1
-        </p>
-
-    </div>
-
-
-    <p>
-        © 2026 GJ Creator SMP
-    </p>
-
-</footer>
-
-
-
-<script>
-
-/* ================================================= */
-/* DEZELFDE SPELERS ALS OP DE HOME PAGINA            */
-/* ================================================= */
-
 const spelers = [
-
-    {
-        id: "jorn",
-
-        naam: "Jorn",
-
-        rol: "Creator",
-
-        status: "levend",
-
-        kills: 0,
-
-        deaths: 0,
-
-        events: 0,
-
-        skin: "https://mc-heads.net/avatar/Jorn/300",
-
-        beschrijving:
-        "Jorn is een deelnemer van GJ Creator SMP Seizoen 1."
-    },
-
-
-    {
-        id: "sem",
-
-        naam: "Sem",
-
-        rol: "Creator",
-
-        status: "levend",
-
-        kills: 0,
-
-        deaths: 0,
-
-        events: 0,
-
-        skin: "https://mc-heads.net/avatar/Sem/300",
-
-        beschrijving:
-        "Sem is een deelnemer van GJ Creator SMP Seizoen 1."
-    }
-
-];
-
-
-/* ================================================= */
-/* SPELER UIT URL HALEN                              */
-/* ================================================= */
-
-const parameters =
-    new URLSearchParams(window.location.search);
-
-
-const spelerID =
-    parameters.get("id");
-
-
-const speler =
-    spelers.find(
-        speler => speler.id === spelerID
-    );
-
-
-const container =
-    document.getElementById("profile-container");
-
-
-/* ================================================= */
-/* PROFIEL LADEN                                     */
-/* ================================================= */
-
-if (!speler) {
-
-    container.innerHTML = `
-
-        <div class="profile-section">
-
-            <h2>
-                Speler niet gevonden
-            </h2>
-
-            <p>
-                Deze speler bestaat niet.
-            </p>
-
-        </div>
-
-    `;
-
-} else {
-
-
-    const statusTekst =
-        speler.status === "levend"
-        ? "● LEVEND"
-        : "● DOOD";
-
-
-    const statusClass =
-        speler.status === "levend"
-        ? "alive"
-        : "dead";
-
-
-    document.title =
-        speler.naam +
-        " | GJ Creator SMP";
-
-
-    container.innerHTML = `
-
-        <!-- PROFIEL HEADER -->
-
-        <div class="profile-header">
-
-
-            <img
-                class="big-skin-image"
-                src="${speler.skin}"
-                alt="${speler.naam}"
-            >
-
-
-            <div class="profile-info">
-
-                <span class="profile-label">
-                    GJ CREATOR SMP • SEIZOEN 1
-                </span>
-
-
-                <h1>
-                    ${speler.naam}
-                </h1>
-
-
-                <p>
-                    ${speler.rol}
-                </p>
-
-
-                <span
-                    class="profile-alive ${statusClass}"
-                >
-                    ${statusTekst}
-                </span>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- STATISTIEKEN -->
-
-        <div class="profile-stats">
-
-
-            <div class="stat-box">
-
-                <strong>
-                    ${speler.kills}
-                </strong>
-
-                <span>
-                    KILLS
-                </span>
-
-            </div>
-
-
-            <div class="stat-box">
-
-                <strong>
-                    ${speler.deaths}
-                </strong>
-
-                <span>
-                    DEATHS
-                </span>
-
-            </div>
-
-
-            <div class="stat-box">
-
-                <strong>
-                    ${speler.events}
-                </strong>
-
-                <span>
-                    EVENTS
-                </span>
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- OVER -->
-
-        <div class="profile-section">
-
-            <h2>
-                OVER ${speler.naam.toUpperCase()}
-            </h2>
-
-
-            <p>
-                ${speler.beschrijving}
-            </p>
-
-        </div>
-
-
-
-        <!-- GEBEURTENISSEN -->
-
-        <div class="profile-section">
-
-            <h2>
-                GEBEURTENISSEN
-            </h2>
-
-
-            <div class="empty-event">
-
-                Nog geen gebeurtenissen
-                toegevoegd.
-
-            </div>
-
-        </div>
-
-    `;
-
+{
+id: "jorn",
+naam: "Jorn",
+rol: "Creator",
+status: "levend",
+kills: 0,
+deaths: 0,
+events: 0,
+skin: "https://mc-heads.net/avatar/Jorn/300",
+beschrijving: "Jorn is een deelnemer van GJ Creator SMP Seizoen 1."
+},
+
+{
+    id: "sem",
+    naam: "Sem",
+    rol: "Creator",
+    status: "levend",
+    kills: 0,
+    deaths: 0,
+    events: 0,
+    skin: "https://mc-heads.net/avatar/Sem/300",
+    beschrijving: "Sem is een deelnemer van GJ Creator SMP Seizoen 1."
 }
 
-</script>
+/*
+NIEUWE SPELER:
 
+{
+    id: "naam",
+    naam: "Naam",
+    rol: "Creator",
+    status: "levend",
+    kills: 0,
+    deaths: 0,
+    events: 0,
+    skin: "https://mc-heads.net/avatar/Naam/300",
+    beschrijving: "Naam is een deelnemer van GJ Creator SMP Seizoen 1."
+}
+*/
 
-</body>
-</html>
+];
