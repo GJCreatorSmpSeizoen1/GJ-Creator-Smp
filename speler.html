@@ -1,363 +1,206 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-
+<!DOCTYPE html><html lang="nl"><head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Deelnemers — GJ Creator SMP</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<link rel="stylesheet" href="style.css">
 
-    <title>Speler | GJ Creator SMP</title>
+</head><body><header class="navbar"><a href="index.html" class="logo">
+    GJ <span>CREATOR SMP</span>
+</a>
 
-    <link rel="stylesheet" href="style.css">
+<nav>
+    <a href="index.html">Home</a>
+    <a href="spelers.html" class="active">Deelnemers</a>
+    <a href="index.html#tijdlijn">Tijdlijn</a>
+    <a href="index.html#nieuws">Nieuws</a>
+</nav>
 
-</head>
+<a href="#" class="discord-button">
+    Discord
+</a>
 
+</header><main><section class="page-hero">
 
-<body>
+    <span class="small-title">
+        SEIZOEN 1
+    </span>
 
+    <h1>
+        Deelnemers
+    </h1>
 
-<header class="navbar">
-
-    <div class="logo">
-        GJ <span>CREATOR SMP</span>
-    </div>
-
-
-    <nav>
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="index.html#seizoen">
-            Seizoen 1
-        </a>
-
-        <a href="index.html#spelers">
-            Spelers
-        </a>
-
-        <a href="index.html#timeline">
-            Tijdlijn
-        </a>
-
-    </nav>
-
-
-    <a class="discord-btn" href="#">
-        Discord
-    </a>
-
-</header>
-
-
-
-<main>
-
-<section class="profile-page">
-
-
-    <a
-        href="index.html#spelers"
-        class="back-btn"
-    >
-        ← Terug naar spelers
-    </a>
-
-
-
-    <div
-        id="profile-container"
-        class="profile-container"
-    >
-
-        Laden...
-
-    </div>
-
+    <p>
+        Bekijk alle deelnemers van GJ Creator SMP.
+    </p>
 
 </section>
 
-</main>
+
+<section class="content-section">
+
+    <div class="players-toolbar">
+
+        <div>
+            <span class="small-title">
+                SPELERS
+            </span>
+
+            <h2 id="playerAmount">
+                0 deelnemers
+            </h2>
+        </div>
 
 
+        <div class="player-filter">
 
-<footer>
+            <button
+                class="filter-button active"
+                onclick="filterPlayers('alle', this)"
+            >
+                Alle
+            </button>
 
-    <div>
+            <button
+                class="filter-button"
+                onclick="filterPlayers('levend', this)"
+            >
+                Levend
+            </button>
 
-        <strong>
-            GJ CREATOR SMP
-        </strong>
+            <button
+                class="filter-button"
+                onclick="filterPlayers('dood', this)"
+            >
+                Dood
+            </button>
 
-        <p>
-            Seizoen 1
-        </p>
+        </div>
 
     </div>
 
 
-    <p>
-        © 2026 GJ Creator SMP
-    </p>
+    <div
+        class="players-grid players-page-grid"
+        id="playersGrid"
+    ></div>
 
-</footer>
+</section>
 
+</main><footer><div class="footer-logo">
+    GJ <span>CREATOR SMP</span>
+</div>
 
+<p>
+    Seizoen 1 • Minecraft SMP
+</p>
 
-<script>
+</footer><script src="spelers.js"></script><script>
 
-/* ================================================= */
-/* DEZELFDE SPELERS ALS OP DE HOME PAGINA            */
-/* ================================================= */
+const playersGrid = document.getElementById("playersGrid");
+const playerAmount = document.getElementById("playerAmount");
 
-const spelers = [
 
-    {
-        id: "jorn",
+function renderPlayers(filter = "alle") {
 
-        naam: "Jorn",
+    playersGrid.innerHTML = "";
 
-        rol: "Creator",
 
-        status: "levend",
+    const filteredPlayers = spelers.filter(speler => {
 
-        kills: 0,
+        if (filter === "alle") {
+            return true;
+        }
 
-        deaths: 0,
+        return speler.status === filter;
 
-        events: 0,
+    });
 
-        skin: "https://mc-heads.net/avatar/Jorn/300",
 
-        beschrijving:
-        "Jorn is een deelnemer van GJ Creator SMP Seizoen 1."
-    },
+    playerAmount.textContent =
+        `${filteredPlayers.length} deelnemer${filteredPlayers.length === 1 ? "" : "s"}`;
 
 
-    {
-        id: "sem",
+    filteredPlayers.forEach(speler => {
 
-        naam: "Sem",
+        const card = document.createElement("a");
 
-        rol: "Creator",
+        card.className = "player-card";
 
-        status: "levend",
+        card.href = `speler.html?id=${speler.id}`;
 
-        kills: 0,
 
-        deaths: 0,
+        card.innerHTML = `
 
-        events: 0,
+            <div class="player-image-container">
 
-        skin: "https://mc-heads.net/avatar/Sem/300",
-
-        beschrijving:
-        "Sem is een deelnemer van GJ Creator SMP Seizoen 1."
-    }
-
-];
-
-
-/* ================================================= */
-/* SPELER UIT URL HALEN                              */
-/* ================================================= */
-
-const parameters =
-    new URLSearchParams(window.location.search);
-
-
-const spelerID =
-    parameters.get("id");
-
-
-const speler =
-    spelers.find(
-        speler => speler.id === spelerID
-    );
-
-
-const container =
-    document.getElementById("profile-container");
-
-
-/* ================================================= */
-/* PROFIEL LADEN                                     */
-/* ================================================= */
-
-if (!speler) {
-
-    container.innerHTML = `
-
-        <div class="profile-section">
-
-            <h2>
-                Speler niet gevonden
-            </h2>
-
-            <p>
-                Deze speler bestaat niet.
-            </p>
-
-        </div>
-
-    `;
-
-} else {
-
-
-    const statusTekst =
-        speler.status === "levend"
-        ? "● LEVEND"
-        : "● DOOD";
-
-
-    const statusClass =
-        speler.status === "levend"
-        ? "alive"
-        : "dead";
-
-
-    document.title =
-        speler.naam +
-        " | GJ Creator SMP";
-
-
-    container.innerHTML = `
-
-        <!-- PROFIEL HEADER -->
-
-        <div class="profile-header">
-
-
-            <img
-                class="big-skin-image"
-                src="${speler.skin}"
-                alt="${speler.naam}"
-            >
-
-
-            <div class="profile-info">
-
-                <span class="profile-label">
-                    GJ CREATOR SMP • SEIZOEN 1
-                </span>
-
-
-                <h1>
-                    ${speler.naam}
-                </h1>
-
-
-                <p>
-                    ${speler.rol}
-                </p>
-
-
-                <span
-                    class="profile-alive ${statusClass}"
+                <img
+                    src="${speler.skin}"
+                    alt="${speler.naam}"
+                    class="player-skin-image"
                 >
-                    ${statusTekst}
+
+                <div class="player-status ${speler.status}">
+                    ${
+                        speler.status === "levend"
+                        ? "● LEVEND"
+                        : "☠ DOOD"
+                    }
+                </div>
+
+            </div>
+
+
+            <div class="player-card-content">
+
+                <span class="player-role">
+                    ${speler.rol}
                 </span>
 
-            </div>
-
-        </div>
-
-
-
-        <!-- STATISTIEKEN -->
-
-        <div class="profile-stats">
+                <h3>
+                    ${speler.naam}
+                </h3>
 
 
-            <div class="stat-box">
+                <div class="player-mini-stats">
 
-                <strong>
-                    ${speler.kills}
-                </strong>
+                    <span>
+                        ⚔ ${speler.kills}
+                    </span>
 
-                <span>
-                    KILLS
-                </span>
+                    <span>
+                        ☠ ${speler.deaths}
+                    </span>
+
+                </div>
 
             </div>
 
-
-            <div class="stat-box">
-
-                <strong>
-                    ${speler.deaths}
-                </strong>
-
-                <span>
-                    DEATHS
-                </span>
-
-            </div>
+        `;
 
 
-            <div class="stat-box">
+        playersGrid.appendChild(card);
 
-                <strong>
-                    ${speler.events}
-                </strong>
-
-                <span>
-                    EVENTS
-                </span>
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- OVER -->
-
-        <div class="profile-section">
-
-            <h2>
-                OVER ${speler.naam.toUpperCase()}
-            </h2>
-
-
-            <p>
-                ${speler.beschrijving}
-            </p>
-
-        </div>
-
-
-
-        <!-- GEBEURTENISSEN -->
-
-        <div class="profile-section">
-
-            <h2>
-                GEBEURTENISSEN
-            </h2>
-
-
-            <div class="empty-event">
-
-                Nog geen gebeurtenissen
-                toegevoegd.
-
-            </div>
-
-        </div>
-
-    `;
+    });
 
 }
 
-</script>
+
+function filterPlayers(filter, button) {
+
+    document
+        .querySelectorAll(".filter-button")
+        .forEach(btn => btn.classList.remove("active"));
 
 
-</body>
+    button.classList.add("active");
+
+
+    renderPlayers(filter);
+
+}
+
+
+renderPlayers();
+
+</script></body>
 </html>
