@@ -1,672 +1,483 @@
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>Statistieken | GJ Creator SMP</title>
+    <title>Statistieken – GJ Creator SMP</title>
 
     <link rel="stylesheet" href="style.css">
 
-</head>
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 30px 0;
+        }
 
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 25px;
+            text-align: center;
+        }
+
+        .stat-card strong {
+            display: block;
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .stat-card span {
+            color: var(--muted);
+        }
+
+        .stat-section {
+            margin-top: 35px;
+        }
+
+        .stat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat-player {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 15px;
+        }
+
+        .stat-player img {
+            width: 55px;
+            height: 55px;
+            border-radius: 10px;
+            image-rendering: pixelated;
+        }
+
+        .stat-player-info {
+            flex: 1;
+        }
+
+        .stat-player-info h3 {
+            margin: 0 0 4px;
+        }
+
+        .stat-player-info p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .stat-number {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .status {
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .alive {
+            color: #35e58a;
+        }
+
+        .dead {
+            color: #ff4b5c;
+        }
+
+        .empty-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        @media (max-width: 700px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-player {
+                padding: 12px;
+            }
+
+            .stat-player img {
+                width: 48px;
+                height: 48px;
+            }
+        }
+    </style>
+</head>
 
 <body>
 
-
 <header class="site-header">
-
     <div class="header-inner">
 
         <a href="index.html" class="brand">
-            GJ CREATOR SMP
+            <span class="brand-red">GJ</span>
+            <span>CREATOR SMP</span>
         </a>
 
-
-        <button
-            class="menu-button"
-            id="menuButton">
+        <button class="menu-button" id="menuButton">
             ☰
         </button>
 
-
-        <nav
-            class="navigation"
-            id="navigation">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="spelers.html">
-                Deelnemers
-            </a>
-
-            <a
-                href="statistieken.html"
-                class="active">
-
-                Statistieken
-
-            </a>
-
-            <a href="tierlist.html">
-                Tierlist
-            </a>
-
-            <a href="bingo.html">
-                Bingo
-            </a>
-
+        <nav id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="spelers.html">Deelnemers</a>
+            <a href="statistieken.html" class="active">Statistieken</a>
+            <a href="tierlist.html">Tierlist</a>
+            <a href="bingo.html">Bingo</a>
         </nav>
 
     </div>
-
 </header>
-
 
 
 <main class="page-container">
 
+    <div class="page-title">
 
-    <div class="hero-label">
-        SEIZOEN 1 • HARDCORE
-    </div>
+        <span class="hero-label">
+            SEIZOEN 1 • HARDCORE
+        </span>
 
+        <h1>
+            Statistieken
+        </h1>
 
-    <h1 class="page-title">
-        STATISTIEKEN
-    </h1>
-
-
-    <p class="page-description">
-        De actuele statistieken van GJ Creator SMP.
-    </p>
-
-
-
-    <div class="stats-grid">
-
-
-        <div class="stat-card">
-
-            <span>
-                DEELNEMERS
-            </span>
-
-            <strong id="totalPlayers">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <span>
-                LEVEND
-            </span>
-
-            <strong id="alivePlayers">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <span>
-                DOOD
-            </span>
-
-            <strong id="deadPlayers">
-                0
-            </strong>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <span>
-                TOTAAL KILLS
-            </span>
-
-            <strong id="totalKills">
-                0
-            </strong>
-
-        </div>
-
+        <p class="page-description">
+            De actuele statistieken van de zichtbare deelnemers.
+        </p>
 
     </div>
 
 
+    <!-- STATISTIEKEN -->
+    <section class="stats-grid">
 
-    <section class="stats-section">
+        <div class="stat-card">
+            <strong id="totalPlayers">0</strong>
+            <span>Deelnemers</span>
+        </div>
 
-        <h2>
-            Kill Leaderboard
-        </h2>
+        <div class="stat-card">
+            <strong id="alivePlayers">0</strong>
+            <span>Levend</span>
+        </div>
 
+        <div class="stat-card">
+            <strong id="deadPlayers">0</strong>
+            <span>Dood</span>
+        </div>
 
-        <div
-            id="killLeaderboard"
-            class="leaderboard">
+        <div class="stat-card">
+            <strong id="totalKills">0</strong>
+            <span>Kills</span>
         </div>
 
     </section>
 
 
+    <!-- KILL LEADERBOARD -->
+    <section class="stat-section">
 
-    <section class="stats-section">
+        <div class="section-heading">
+            <div>
+                <span class="hero-label">
+                    LEADERBOARD
+                </span>
 
-        <h2>
-            Alle deelnemers
-        </h2>
-
-
-        <div
-            id="playerStats"
-            class="player-stats-list">
+                <h2>
+                    Kills
+                </h2>
+            </div>
         </div>
+
+        <div id="killLeaderboard" class="stat-list"></div>
 
     </section>
 
+
+    <!-- ALLE DEELNEMERS -->
+    <section class="stat-section">
+
+        <div class="section-heading">
+            <div>
+                <span class="hero-label">
+                    HARDCORE
+                </span>
+
+                <h2>
+                    Deelnemers
+                </h2>
+            </div>
+        </div>
+
+        <div id="allPlayers" class="stat-list"></div>
+
+    </section>
 
 </main>
-
 
 
 <footer class="site-footer">
 
     <div class="footer-inner">
 
-        <div>
-
-            <div class="footer-brand">
-                GJ CREATOR SMP
-            </div>
-
-            <p>
-                Seizoen 1 • Hardcore • Community
-            </p>
-
+        <div class="footer-brand">
+            <strong>GJ CREATOR SMP</strong>
+            <span>Seizoen 1 • Hardcore</span>
         </div>
 
-        <p>
-            © 2026 GJ Creator SMP
-        </p>
+        <div>
+            Minecraft SMP van Jorn & Sem
+        </div>
 
     </div>
 
 </footer>
 
 
-
 <script src="spelers.js"></script>
-
 
 <script>
 
+    /*
+     * ==========================================
+     * MENU TELEFOON
+     * ==========================================
+     */
 
-const menuButton =
-    document.getElementById("menuButton");
+    const menuButton = document.getElementById("menuButton");
+    const mainNav = document.getElementById("mainNav");
 
-const navigation =
-    document.getElementById("navigation");
+    if (menuButton && mainNav) {
 
-
-menuButton.onclick = () => {
-
-    navigation.classList.toggle("open");
-
-    menuButton.textContent =
-        navigation.classList.contains("open")
-            ? "✕"
-            : "☰";
-
-};
-
-
-
-const total =
-    spelers.length;
-
-
-const alive =
-    spelers.filter(
-        speler =>
-            speler.status === "levend"
-    ).length;
-
-
-const dead =
-    spelers.filter(
-        speler =>
-            speler.status === "dood"
-    ).length;
-
-
-const kills =
-    spelers.reduce(
-        (sum, speler) =>
-            sum + (speler.kills || 0),
-        0
-    );
-
-
-
-document.getElementById(
-    "totalPlayers"
-).textContent = total;
-
-
-document.getElementById(
-    "alivePlayers"
-).textContent = alive;
-
-
-document.getElementById(
-    "deadPlayers"
-).textContent = dead;
-
-
-document.getElementById(
-    "totalKills"
-).textContent = kills;
-
-
-
-const leaderboard =
-    document.getElementById(
-        "killLeaderboard"
-    );
-
-
-
-const sorted =
-    [...spelers].sort(
-        (a, b) =>
-            (b.kills || 0) -
-            (a.kills || 0)
-    );
-
-
-
-sorted.forEach(
-    (speler, index) => {
-
-        const item =
-            document.createElement("a");
-
-        item.href =
-            "speler.html?id=" +
-            encodeURIComponent(speler.id);
-
-        item.className =
-            "leaderboard-item";
-
-
-        item.innerHTML = `
-
-            <span class="rank">
-                #${index + 1}
-            </span>
-
-            <img
-                src="${speler.skin}"
-                alt="${speler.naam}">
-
-            <strong>
-                ${speler.naam}
-            </strong>
-
-            <span>
-                ${speler.kills || 0} kills
-            </span>
-
-        `;
-
-
-        leaderboard.appendChild(item);
+        menuButton.addEventListener("click", () => {
+            mainNav.classList.toggle("open");
+        });
 
     }
-);
 
 
+    /*
+     * ==========================================
+     * CONTROLE OF SPELER ZICHTBAAR IS
+     * ==========================================
+     */
 
-const playerStats =
-    document.getElementById(
-        "playerStats"
-    );
+    function spelerIsZichtbaar(speler) {
 
+        if (speler.zichtbaar === false) {
+            return false;
+        }
 
+        if (!speler.zichtbaarVanaf) {
+            return true;
+        }
 
-spelers.forEach(
-    speler => {
+        const nu = new Date();
+        const zichtbaarVanaf = new Date(speler.zichtbaarVanaf);
 
-        const item =
-            document.createElement("a");
-
-        item.href =
-            "speler.html?id=" +
-            encodeURIComponent(speler.id);
-
-        item.className =
-            "player-stat-row";
-
-
-        const alive =
-            speler.status === "levend";
+        return nu >= zichtbaarVanaf;
+    }
 
 
-        item.innerHTML = `
+    /*
+     * ==========================================
+     * STATISTIEKEN LADEN
+     * ==========================================
+     */
 
-            <div>
+    function laadStatistieken() {
 
-                <strong>
-                    ${speler.naam}
-                </strong>
-
-                <span class="${
-                    alive
-                        ? "alive-text"
-                        : "dead-text"
-                }">
-
-                    ${alive
-                        ? "● LEVEND"
-                        : "● DOOD"}
-
-                </span>
-
-            </div>
+        const zichtbareSpelers = spelers.filter(spelerIsZichtbaar);
 
 
-            <div>
+        /*
+         * TOTALE AANTALLEN
+         */
 
-                <strong>
-                    ${speler.kills || 0}
-                </strong>
+        const totaal = zichtbareSpelers.length;
 
-                <span>
-                    Kills
-                </span>
+        const levend = zichtbareSpelers.filter(
+            speler => speler.status === "levend"
+        ).length;
 
-            </div>
+        const dood = zichtbareSpelers.filter(
+            speler => speler.status === "dood"
+        ).length;
 
-
-            <div>
-
-                <strong>
-                    ${speler.events || 0}
-                </strong>
-
-                <span>
-                    Events
-                </span>
-
-            </div>
-
-        `;
+        const kills = zichtbareSpelers.reduce(
+            (som, speler) => som + (Number(speler.kills) || 0),
+            0
+        );
 
 
-        playerStats.appendChild(item);
+        document.getElementById("totalPlayers").textContent = totaal;
+        document.getElementById("alivePlayers").textContent = levend;
+        document.getElementById("deadPlayers").textContent = dood;
+        document.getElementById("totalKills").textContent = kills;
+
+
+        /*
+         * KILL LEADERBOARD
+         */
+
+        const leaderboard =
+            document.getElementById("killLeaderboard");
+
+
+        if (zichtbareSpelers.length === 0) {
+
+            leaderboard.innerHTML = `
+                <div class="empty-box">
+                    🔒 Statistieken worden binnenkort onthuld
+                </div>
+            `;
+
+        } else {
+
+            const gesorteerd = [...zichtbareSpelers].sort(
+                (a, b) => (Number(b.kills) || 0) - (Number(a.kills) || 0)
+            );
+
+
+            leaderboard.innerHTML = gesorteerd.map((speler, index) => `
+
+                <div class="stat-player">
+
+                    <img
+                        src="${speler.skin}"
+                        alt="${speler.naam}"
+                    >
+
+                    <div class="stat-player-info">
+
+                        <h3>
+                            #${index + 1} ${speler.naam}
+                        </h3>
+
+                        <p>
+                            <span class="status ${speler.status === "levend" ? "alive" : "dead"}">
+                                ${speler.status === "levend" ? "● LEVEND" : "✖ DOOD"}
+                            </span>
+                        </p>
+
+                    </div>
+
+                    <div class="stat-number">
+                        ${Number(speler.kills) || 0} ⚔️
+                    </div>
+
+                </div>
+
+            `).join("");
+
+        }
+
+
+        /*
+         * ALLE ZICHTBARE DEELNEMERS
+         */
+
+        const allPlayers =
+            document.getElementById("allPlayers");
+
+
+        if (zichtbareSpelers.length === 0) {
+
+            allPlayers.innerHTML = `
+                <div class="empty-box">
+                    🔒 Deelnemers worden binnenkort onthuld
+                </div>
+            `;
+
+        } else {
+
+            allPlayers.innerHTML = zichtbareSpelers.map(speler => `
+
+                <a
+                    href="speler.html?id=${speler.id}"
+                    class="stat-player"
+                    style="text-decoration:none;color:inherit;"
+                >
+
+                    <img
+                        src="${speler.skin}"
+                        alt="${speler.naam}"
+                    >
+
+                    <div class="stat-player-info">
+
+                        <h3>
+                            ${speler.naam}
+                        </h3>
+
+                        <p>
+                            ${speler.rol}
+                        </p>
+
+                    </div>
+
+                    <span class="status ${speler.status === "levend" ? "alive" : "dead"}">
+                        ${speler.status === "levend" ? "● LEVEND" : "✖ DOOD"}
+                    </span>
+
+                </a>
+
+            `).join("");
+
+        }
 
     }
-);
 
+
+    /*
+     * ==========================================
+     * DIRECT LADEN
+     * ==========================================
+     */
+
+    laadStatistieken();
+
+
+    /*
+     * ==========================================
+     * ELKE SECONDE CONTROLEREN
+     *
+     * Hierdoor verschijnen Jorn en Sem automatisch
+     * zodra 22:05 bereikt is.
+     * ==========================================
+     */
+
+    setInterval(laadStatistieken, 1000);
 
 </script>
 
-
-<style>
-
-
-.stats-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 15px;
-
-    margin-top: 40px;
-
-}
-
-
-.stat-card {
-
-    padding: 25px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius:
-        var(--radius);
-
-    background:
-        var(--card);
-
-}
-
-
-.stat-card span {
-
-    color:
-        var(--muted);
-
-    font-size: 10px;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-
-}
-
-
-.stat-card strong {
-
-    display: block;
-
-    margin-top: 8px;
-
-    font-size: 35px;
-
-}
-
-
-.stats-section {
-
-    margin-top: 45px;
-
-}
-
-
-.stats-section h2 {
-
-    margin-bottom: 18px;
-
-}
-
-
-.leaderboard,
-.player-stats-list {
-
-    display: grid;
-
-    gap: 10px;
-
-}
-
-
-.leaderboard-item,
-.player-stat-row {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    padding: 15px;
-
-    border:
-        1px solid var(--border);
-
-    border-radius: 12px;
-
-    background:
-        var(--card);
-
-    color: white;
-
-    text-decoration: none;
-
-}
-
-
-.leaderboard-item:hover,
-.player-stat-row:hover {
-
-    background:
-        var(--card-hover);
-
-}
-
-
-.leaderboard-item img {
-
-    width: 45px;
-
-    height: 45px;
-
-    image-rendering: pixelated;
-
-}
-
-
-.rank {
-
-    width: 35px;
-
-    color:
-        var(--muted);
-
-    font-weight: 900;
-
-}
-
-
-.leaderboard-item span:last-child {
-
-    margin-left: auto;
-
-    color:
-        var(--blue-light);
-
-    font-weight: 900;
-
-}
-
-
-.player-stat-row {
-
-    justify-content: space-between;
-
-}
-
-
-.player-stat-row > div {
-
-    min-width: 100px;
-
-}
-
-
-.player-stat-row span {
-
-    display: block;
-
-    margin-top: 3px;
-
-    color:
-        var(--muted);
-
-    font-size: 10px;
-
-}
-
-
-.alive-text {
-
-    color: #45e995 !important;
-
-}
-
-
-.dead-text {
-
-    color: #ff5362 !important;
-
-}
-
-
-@media(max-width:700px) {
-
-    .stats-grid {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
-    }
-
-
-    .player-stat-row {
-
-        gap: 8px;
-
-    }
-
-
-    .player-stat-row > div {
-
-        min-width: 0;
-
-    }
-
-}
-
-
-@media(max-width:450px) {
-
-    .stats-grid {
-
-        grid-template-columns: 1fr 1fr;
-
-    }
-
-
-    .player-stat-row {
-
-        font-size: 12px;
-
-    }
-
-}
-
-</style>
-
-
 </body>
-
 </html>
+
+Nu gebruikt Statistieken exact dezelfde "zichtbaarVanaf"-controle als Home en Deelnemers.
+
+Dus vóór 22:05:
+
+- Deelnemers: verborgen 🔒
+- Home: verborgen 🔒
+- Statistieken: 0 deelnemers / 0 levend / 0 dood / 0 kills
+- Kill leaderboard: verborgen
+- Deelnemerslijst: verborgen
+
+Om 22:05 verschijnen Jorn en Sem automatisch.
