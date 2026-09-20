@@ -1,598 +1,468 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>GJ Creator SMP — Seizoen 1</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
-    >
+    <title>GJ Creator SMP | Seizoen 1</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
 
-    <header class="site-header">
+<header class="site-header">
 
-        <div class="header-inner">
+    <div class="header-inner">
 
-            <a href="index.html" class="brand">
-                <span class="brand-logo">GJ</span>
-                <span class="brand-text">CREATOR SMP</span>
+        <a href="index.html" class="brand">
+            GJ CREATOR SMP
+        </a>
+
+
+        <button
+            class="menu-button"
+            id="menuButton">
+            ☰
+        </button>
+
+
+        <nav
+            class="navigation"
+            id="navigation">
+
+            <a href="index.html">
+                Home
             </a>
 
-            <button
-                class="menu-button"
-                id="menuButton"
-                aria-label="Menu openen"
-            >
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <a href="spelers.html">
+                Deelnemers
+            </a>
 
-            <nav class="navigation" id="navigation">
+            <a href="statistieken.html">
+                Statistieken
+            </a>
 
-                <a href="index.html" class="active">
-                    Home
-                </a>
+            <a href="tierlist.html">
+                Tierlist
+            </a>
 
-                <a href="spelers.html">
-                    Deelnemers
-                </a>
+            <a href="bingo.html">
+                Bingo
+            </a>
 
-                <a href="deaths.html">
-                    Deaths
-                </a>
+        </nav>
 
-                <a href="statistieken.html">
-                    Statistieken
-                </a>
+    </div>
 
-                <a href="tierlist.html">
-                    Tierlist
-                </a>
+</header>
 
-                <a href="bingo.html">
-                    Bingo
-                </a>
 
-            </nav>
+
+<main>
+
+
+<section class="home-hero">
+
+    <div class="hero-content">
+
+        <div class="hero-label">
+            SEIZOEN 1 • HARDCORE
+        </div>
+
+
+        <h1>
+            GJ CREATOR SMP
+        </h1>
+
+
+        <p>
+            Eén leven. Eén wereld.
+            Wie overleeft seizoen 1?
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="spelers.html"
+                class="button button-primary">
+
+                Bekijk deelnemers
+
+            </a>
+
+
+            <a
+                href="bingo.html"
+                class="button">
+
+                Bekijk Bingo
+
+            </a>
 
         </div>
 
-    </header>
+    </div>
+
+</section>
 
 
-    <!-- =========================
-         HERO
-    ========================== -->
 
-    <main>
+<section class="home-section">
 
-        <section class="home-hero">
 
-            <div class="hero-blue-glow"></div>
-            <div class="hero-red-glow"></div>
+    <div class="section-heading">
 
-            <div class="hero-content">
+        <div>
 
-                <div class="season-label">
-                    SEIZOEN 1
-                </div>
-
-                <h1>
-                    GJ
-                    <span>CREATOR SMP</span>
-                </h1>
-
-                <p>
-                    Het verhaal begint hier.
-                </p>
-
-                <div class="hero-buttons">
-
-                    <a
-                        href="spelers.html"
-                        class="button button-red"
-                    >
-                        DEELNEMERS
-                        <span>→</span>
-                    </a>
-
-                    <a
-                        href="statistieken.html"
-                        class="button button-blue"
-                    >
-                        STATISTIEKEN
-                        <span>→</span>
-                    </a>
-
-                </div>
-
+            <div class="hero-label">
+                SEIZOEN 1
             </div>
 
-        </section>
+            <h2>
+                Deelnemers
+            </h2>
 
+        </div>
 
-        <!-- =========================
-             STATS
-        ========================== -->
 
-        <section class="stats-bar">
+        <a
+            href="spelers.html"
+            class="button">
 
-            <div class="stats-container">
+            Alle deelnemers
 
-                <div class="stat-box">
-                    <strong id="playerCount">0</strong>
-                    <span>DEELNEMERS</span>
-                </div>
+        </a>
 
-                <div class="stat-divider"></div>
+    </div>
 
-                <div class="stat-box">
-                    <strong id="killCount">0</strong>
-                    <span>KILLS</span>
-                </div>
 
-                <div class="stat-divider"></div>
 
-                <div class="stat-box">
-                    <strong id="deathCount">0</strong>
-                    <span>DEATHS</span>
-                </div>
+    <div
+        class="home-players"
+        id="homePlayers">
+    </div>
 
-            </div>
 
-        </section>
+</section>
 
 
-        <!-- =========================
-             NIEUWS
-        ========================== -->
 
-        <section class="home-section">
+<section class="stats-bar">
 
-            <div class="section-container">
 
-                <div class="section-heading">
+    <div>
 
-                    <div class="section-number">
-                        01
-                    </div>
+        <strong id="playerCount">
+            0
+        </strong>
 
-                    <div>
-                        <small>
-                            LAATSTE UPDATE
-                        </small>
+        <span>
+            Deelnemers
+        </span>
 
-                        <h2>
-                            Welkom bij seizoen 1
-                        </h2>
-                    </div>
+    </div>
 
-                </div>
 
+    <div>
 
-                <div class="announcement">
+        <strong id="aliveCount">
+            0
+        </strong>
 
-                    <div class="announcement-content">
+        <span>
+            Levend
+        </span>
 
-                        <div class="live-label">
-                            <span></span>
-                            LIVE
-                        </div>
+    </div>
 
-                        <h3>
-                            GJ Creator SMP is begonnen
-                        </h3>
 
-                        <p>
-                            Bekijk de deelnemers, volg de statistieken
-                            en ontdek alles wat er tijdens seizoen 1 gebeurt.
-                        </p>
+    <div>
 
-                    </div>
+        <strong id="deadCount">
+            0
+        </strong>
 
-                    <a
-                        href="spelers.html"
-                        class="announcement-button"
-                    >
-                        BEKIJK →
-                    </a>
+        <span>
+            Dood
+        </span>
 
-                </div>
+    </div>
 
-            </div>
 
-        </section>
+    <div>
 
+        <strong id="killCount">
+            0
+        </strong>
 
-        <!-- =========================
-             SPELERS
-        ========================== -->
+        <span>
+            Kills
+        </span>
 
-        <section class="home-section players-section">
+    </div>
 
-            <div class="section-container">
 
-                <div class="section-heading heading-with-link">
+</section>
 
-                    <div class="heading-left">
 
-                        <div class="section-number">
-                            02
-                        </div>
 
-                        <div>
-                            <small>
-                                DEELNEMERS
-                            </small>
+<section class="home-section">
 
-                            <h2>
-                                Spelers
-                            </h2>
-                        </div>
 
-                    </div>
+    <div class="home-links">
 
-                    <a
-                        href="spelers.html"
-                        class="section-link"
-                    >
-                        ALLE SPELERS →
-                    </a>
 
-                </div>
+        <a href="statistieken.html">
 
+            <span>
+                📊
+            </span>
 
-                <div
-                    class="home-players"
-                    id="homePlayers"
-                ></div>
+            <strong>
+                Statistieken
+            </strong>
 
-            </div>
+            <small>
+                Bekijk de SMP-statistieken
+            </small>
 
-        </section>
+        </a>
 
 
-        <!-- =========================
-             ONDERDELEN
-        ========================== -->
 
-        <section class="home-section">
+        <a href="tierlist.html">
 
-            <div class="section-container">
+            <span>
+                🏆
+            </span>
 
-                <div class="section-heading">
+            <strong>
+                Tierlist
+            </strong>
 
-                    <div class="section-number">
-                        03
-                    </div>
+            <small>
+                Bekijk de spelers
+            </small>
 
-                    <div>
-                        <small>
-                            GJ CREATOR SMP
-                        </small>
+        </a>
 
-                        <h2>
-                            Ontdek meer
-                        </h2>
-                    </div>
 
-                </div>
 
+        <a href="bingo.html">
 
-                <div class="home-links">
+            <span>
+                ⛏️
+            </span>
 
-                    <a
-                        href="deaths.html"
-                        class="home-link-card red-card"
-                    >
+            <strong>
+                Bingo
+            </strong>
 
-                        <div class="link-icon">
-                            ☠
-                        </div>
+            <small>
+                Voltooi de challenges
+            </small>
 
-                        <div class="link-content">
-                            <small>
-                                OVERZICHT
-                            </small>
+        </a>
 
-                            <h3>
-                                Deaths
-                            </h3>
 
-                            <p>
-                                Bekijk alle deaths van het seizoen.
-                            </p>
-                        </div>
+    </div>
 
-                        <strong>
-                            →
-                        </strong>
+</section>
 
-                    </a>
 
+</main>
 
-                    <a
-                        href="statistieken.html"
-                        class="home-link-card blue-card"
-                    >
 
-                        <div class="link-icon">
-                            ★
-                        </div>
 
-                        <div class="link-content">
-                            <small>
-                                DATA
-                            </small>
+<footer class="site-footer">
 
-                            <h3>
-                                Statistieken
-                            </h3>
+    <div class="footer-inner">
 
-                            <p>
-                                Bekijk de belangrijkste cijfers.
-                            </p>
-                        </div>
-
-                        <strong>
-                            →
-                        </strong>
-
-                    </a>
-
-
-                    <a
-                        href="tierlist.html"
-                        class="home-link-card red-card"
-                    >
-
-                        <div class="link-icon">
-                            T
-                        </div>
-
-                        <div class="link-content">
-                            <small>
-                                RANKING
-                            </small>
-
-                            <h3>
-                                Tierlist
-                            </h3>
-
-                            <p>
-                                Bekijk de tierlist van seizoen 1.
-                            </p>
-                        </div>
-
-                        <strong>
-                            →
-                        </strong>
-
-                    </a>
-
-
-                    <a
-                        href="bingo.html"
-                        class="home-link-card blue-card"
-                    >
-
-                        <div class="link-icon">
-                            B
-                        </div>
-
-                        <div class="link-content">
-                            <small>
-                                EVENT
-                            </small>
-
-                            <h3>
-                                Bingo
-                            </h3>
-
-                            <p>
-                                Bekijk de seizoen 1 bingo.
-                            </p>
-                        </div>
-
-                        <strong>
-                            →
-                        </strong>
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer class="footer">
-
-        <div class="footer-inner">
+        <div>
 
             <div class="footer-brand">
-
-                <span class="footer-logo">
-                    GJ
-                </span>
-
-                <span>
-                    CREATOR SMP
-                </span>
-
+                GJ CREATOR SMP
             </div>
 
-            <div class="footer-season">
-                SEIZOEN 1 • 2026
-            </div>
+            <p>
+                Seizoen 1 • Hardcore • Community
+            </p>
 
         </div>
 
-    </footer>
+
+        <p>
+            © 2026 GJ Creator SMP
+        </p>
+
+    </div>
+
+</footer>
 
 
-    <!-- =========================
-         SPELERS DATABASE
-    ========================== -->
 
-    <script src="spelers.js"></script>
+<script src="spelers.js"></script>
 
 
-    <!-- =========================
-         PAGINA JAVASCRIPT
-    ========================== -->
-
-    <script>
-
-        /*
-         * STATISTIEKEN
-         */
-
-        let totalKills = 0;
-        let totalDeaths = 0;
-
-        spelers.forEach(speler => {
-
-            totalKills += speler.kills || 0;
-            totalDeaths += speler.deaths || 0;
-
-        });
-
-        document.getElementById("playerCount").textContent =
-            spelers.length;
-
-        document.getElementById("killCount").textContent =
-            totalKills;
-
-        document.getElementById("deathCount").textContent =
-            totalDeaths;
+<script>
 
 
-        /*
-         * SPELERS OP HOMEPAGE
-         */
+const menuButton =
+    document.getElementById("menuButton");
 
-        const homePlayers =
-            document.getElementById("homePlayers");
+const navigation =
+    document.getElementById("navigation");
 
-        spelers.slice(0, 4).forEach(speler => {
 
-            const card =
-                document.createElement("a");
+menuButton.addEventListener(
+    "click",
+    () => {
 
-            card.href =
-                "speler.html?id=" +
-                encodeURIComponent(speler.id);
+        navigation.classList.toggle("open");
 
-            card.className =
-                "home-player-card";
+        menuButton.textContent =
+            navigation.classList.contains("open")
+                ? "✕"
+                : "☰";
 
-            card.innerHTML = `
+    }
+);
 
-                <div class="home-player-skin">
 
-                    <img
-                        src="${speler.skin}"
-                        alt="${speler.naam}"
-                    >
 
-                    <div class="home-player-status ${speler.status}">
-                        ${
-                            speler.status === "levend"
-                                ? "LEVEND"
-                                : "DOOD"
-                        }
-                    </div>
+const playerCount =
+    document.getElementById("playerCount");
+
+const aliveCount =
+    document.getElementById("aliveCount");
+
+const deadCount =
+    document.getElementById("deadCount");
+
+const killCount =
+    document.getElementById("killCount");
+
+
+
+playerCount.textContent =
+    spelers.length;
+
+
+
+aliveCount.textContent =
+    spelers.filter(
+        speler =>
+            speler.status === "levend"
+    ).length;
+
+
+
+deadCount.textContent =
+    spelers.filter(
+        speler =>
+            speler.status === "dood"
+    ).length;
+
+
+
+killCount.textContent =
+    spelers.reduce(
+        (total, speler) =>
+            total + (speler.kills || 0),
+        0
+    );
+
+
+
+const homePlayers =
+    document.getElementById("homePlayers");
+
+
+
+spelers.slice(0, 4).forEach(
+    speler => {
+
+
+        const card =
+            document.createElement("a");
+
+
+        card.href =
+            "speler.html?id=" +
+            encodeURIComponent(speler.id);
+
+
+        card.className =
+            "player-card";
+
+
+        const isAlive =
+            speler.status === "levend";
+
+
+        card.innerHTML = `
+
+            <div class="player-skin">
+
+                <img
+                    src="${speler.skin}"
+                    alt="${speler.naam}">
+
+            </div>
+
+
+            <div class="player-info">
+
+                <div class="player-status ${
+                    isAlive
+                        ? "alive"
+                        : "dead"
+                }">
+
+                    <span></span>
+
+                    ${
+                        isAlive
+                            ? "LEVEND"
+                            : "DOOD"
+                    }
 
                 </div>
 
-                <div class="home-player-info">
 
-                    <small>
-                        ${speler.rol}
-                    </small>
-
-                    <h3>
-                        ${speler.naam}
-                    </h3>
-
-                    <div class="home-player-stats">
-
-                        <span>
-                            ⚔ ${speler.kills || 0}
-                        </span>
-
-                        <span>
-                            ☠ ${speler.deaths || 0}
-                        </span>
-
-                    </div>
-
-                </div>
-
-            `;
-
-            homePlayers.appendChild(card);
-
-        });
+                <h3>
+                    ${speler.naam}
+                </h3>
 
 
-        /*
-         * MOBIEL MENU
-         */
+                <p>
+                    ${speler.rol}
+                </p>
 
-        const menuButton =
-            document.getElementById("menuButton");
+            </div>
 
-        const navigation =
-            document.getElementById("navigation");
-
-        menuButton.addEventListener("click", () => {
-
-            navigation.classList.toggle("open");
-
-            menuButton.classList.toggle("open");
-
-        });
+        `;
 
 
-        document
-            .querySelectorAll(".navigation a")
-            .forEach(link => {
+        homePlayers.appendChild(card);
 
-                link.addEventListener("click", () => {
+    }
+);
 
-                    navigation.classList.remove("open");
 
-                    menuButton.classList.remove("open");
+</script>
 
-                });
-
-            });
-
-    </script>
 
 </body>
+
 </html>
