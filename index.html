@@ -1,468 +1,548 @@
 <!DOCTYPE html>
 <html lang="nl">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>GJ Creator SMP | Seizoen 1</title>
+    <title>GJ Creator SMP – Seizoen 1</title>
 
     <link rel="stylesheet" href="style.css">
 
-</head>
+    <style>
+        .empty-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 35px 20px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 16px;
+            width: 100%;
+        }
 
+        .player-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            transition: .2s ease;
+        }
+
+        .player-card:hover {
+            transform: translateY(-3px);
+            background: var(--card-hover);
+            border-color: rgba(255,255,255,.16);
+        }
+
+        .player-card img {
+            width: 70px;
+            height: 70px;
+            image-rendering: pixelated;
+            border-radius: 12px;
+            background: #111827;
+        }
+
+        .player-card-info {
+            flex: 1;
+        }
+
+        .player-card-info h3 {
+            margin: 0 0 4px;
+            font-size: 20px;
+        }
+
+        .player-card-info p {
+            margin: 0 0 8px;
+            color: var(--muted);
+        }
+
+        .status {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .5px;
+        }
+
+        .status.alive {
+            color: #35e58a;
+        }
+
+        .status.dead {
+            color: #ff4b5c;
+        }
+
+        .home-players {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        @media (max-width: 700px) {
+            .home-players {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
 
 <body>
 
-
 <header class="site-header">
-
     <div class="header-inner">
 
         <a href="index.html" class="brand">
-            GJ CREATOR SMP
+            <span class="brand-red">GJ</span>
+            <span>CREATOR SMP</span>
         </a>
 
-
-        <button
-            class="menu-button"
-            id="menuButton">
+        <button class="menu-button" id="menuButton">
             ☰
         </button>
 
-
-        <nav
-            class="navigation"
-            id="navigation">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="spelers.html">
-                Deelnemers
-            </a>
-
-            <a href="statistieken.html">
-                Statistieken
-            </a>
-
-            <a href="tierlist.html">
-                Tierlist
-            </a>
-
-            <a href="bingo.html">
-                Bingo
-            </a>
-
+        <nav id="mainNav">
+            <a href="index.html" class="active">Home</a>
+            <a href="spelers.html">Deelnemers</a>
+            <a href="statistieken.html">Statistieken</a>
+            <a href="tierlist.html">Tierlist</a>
+            <a href="bingo.html">Bingo</a>
         </nav>
 
     </div>
-
 </header>
-
 
 
 <main>
 
+    <!-- HERO -->
+    <section class="home-hero">
 
-<section class="home-hero">
+        <div class="hero-content">
 
-    <div class="hero-content">
+            <span class="hero-label">
+                SEIZOEN 1 • HARDCORE
+            </span>
 
-        <div class="hero-label">
-            SEIZOEN 1 • HARDCORE
-        </div>
+            <h1>
+                GJ CREATOR SMP
+            </h1>
 
+            <p>
+                Eén leven. Eén wereld.
+                <br>
+                Wie overleeft seizoen 1?
+            </p>
 
-        <h1>
-            GJ CREATOR SMP
-        </h1>
+            <div class="hero-buttons">
+                <a href="spelers.html" class="button button-primary">
+                    Bekijk deelnemers
+                </a>
 
-
-        <p>
-            Eén leven. Eén wereld.
-            Wie overleeft seizoen 1?
-        </p>
-
-
-        <div class="hero-buttons">
-
-            <a
-                href="spelers.html"
-                class="button button-primary">
-
-                Bekijk deelnemers
-
-            </a>
-
-
-            <a
-                href="bingo.html"
-                class="button">
-
-                Bekijk Bingo
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<section class="home-section">
-
-
-    <div class="section-heading">
-
-        <div>
-
-            <div class="hero-label">
-                SEIZOEN 1
+                <a href="bingo.html" class="button">
+                    SMP Bingo
+                </a>
             </div>
 
-            <h2>
-                Deelnemers
-            </h2>
+        </div>
+
+    </section>
+
+
+    <!-- STATS -->
+    <section class="stats-bar">
+
+        <div>
+            <strong id="totalPlayers">0</strong>
+            <span>Deelnemers</span>
+        </div>
+
+        <div>
+            <strong id="alivePlayers">0</strong>
+            <span>Levend</span>
+        </div>
+
+        <div>
+            <strong id="deadPlayers">0</strong>
+            <span>Dood</span>
+        </div>
+
+        <div>
+            <strong id="totalKills">0</strong>
+            <span>Kills</span>
+        </div>
+
+    </section>
+
+
+    <!-- DEELNEMERS -->
+    <section class="home-section">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="hero-label">
+                    DEELNEMERS
+                </span>
+
+                <h2>
+                    Wie doet mee?
+                </h2>
+            </div>
+
+            <a href="spelers.html" class="button">
+                Alle deelnemers →
+            </a>
 
         </div>
 
 
-        <a
-            href="spelers.html"
-            class="button">
+        <div id="homePlayers" class="home-players">
 
-            Alle deelnemers
+            <div class="empty-box">
+                🔒 Deelnemers worden binnenkort onthuld
+            </div>
 
-        </a>
+        </div>
 
-    </div>
-
-
-
-    <div
-        class="home-players"
-        id="homePlayers">
-    </div>
+    </section>
 
 
-</section>
+    <!-- SNELLE LINKS -->
+    <section class="home-section">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="hero-label">
+                    GJ CREATOR SMP
+                </span>
+
+                <h2>
+                    Meer bekijken
+                </h2>
+            </div>
+
+        </div>
 
 
+        <div class="home-links">
 
-<section class="stats-bar">
+            <a href="statistieken.html" class="home-link-card">
+                <span class="home-link-icon">📊</span>
 
-
-    <div>
-
-        <strong id="playerCount">
-            0
-        </strong>
-
-        <span>
-            Deelnemers
-        </span>
-
-    </div>
+                <div>
+                    <h3>Statistieken</h3>
+                    <p>
+                        Bekijk kills en de huidige SMP-status.
+                    </p>
+                </div>
+            </a>
 
 
-    <div>
+            <a href="tierlist.html" class="home-link-card">
+                <span class="home-link-icon">🏆</span>
 
-        <strong id="aliveCount">
-            0
-        </strong>
-
-        <span>
-            Levend
-        </span>
-
-    </div>
-
-
-    <div>
-
-        <strong id="deadCount">
-            0
-        </strong>
-
-        <span>
-            Dood
-        </span>
-
-    </div>
+                <div>
+                    <h3>Tierlist</h3>
+                    <p>
+                        Bekijk de Combat en Overall tierlist.
+                    </p>
+                </div>
+            </a>
 
 
-    <div>
+            <a href="bingo.html" class="home-link-card">
+                <span class="home-link-icon">🎯</span>
 
-        <strong id="killCount">
-            0
-        </strong>
+                <div>
+                    <h3>SMP Bingo</h3>
+                    <p>
+                        Probeer alle bingo-opdrachten te behalen.
+                    </p>
+                </div>
+            </a>
 
-        <span>
-            Kills
-        </span>
+        </div>
 
-    </div>
-
-
-</section>
-
-
-
-<section class="home-section">
-
-
-    <div class="home-links">
-
-
-        <a href="statistieken.html">
-
-            <span>
-                📊
-            </span>
-
-            <strong>
-                Statistieken
-            </strong>
-
-            <small>
-                Bekijk de SMP-statistieken
-            </small>
-
-        </a>
-
-
-
-        <a href="tierlist.html">
-
-            <span>
-                🏆
-            </span>
-
-            <strong>
-                Tierlist
-            </strong>
-
-            <small>
-                Bekijk de spelers
-            </small>
-
-        </a>
-
-
-
-        <a href="bingo.html">
-
-            <span>
-                ⛏️
-            </span>
-
-            <strong>
-                Bingo
-            </strong>
-
-            <small>
-                Voltooi de challenges
-            </small>
-
-        </a>
-
-
-    </div>
-
-</section>
-
+    </section>
 
 </main>
-
 
 
 <footer class="site-footer">
 
     <div class="footer-inner">
 
-        <div>
-
-            <div class="footer-brand">
-                GJ CREATOR SMP
-            </div>
-
-            <p>
-                Seizoen 1 • Hardcore • Community
-            </p>
-
+        <div class="footer-brand">
+            <strong>GJ CREATOR SMP</strong>
+            <span>Seizoen 1 • Hardcore</span>
         </div>
 
-
-        <p>
-            © 2026 GJ Creator SMP
-        </p>
+        <div>
+            Minecraft SMP van Jorn & Sem
+        </div>
 
     </div>
 
 </footer>
 
 
-
 <script src="spelers.js"></script>
-
 
 <script>
 
+    /*
+     * ==========================================
+     * MENU VOOR TELEFOON
+     * ==========================================
+     */
 
-const menuButton =
-    document.getElementById("menuButton");
+    const menuButton = document.getElementById("menuButton");
+    const mainNav = document.getElementById("mainNav");
 
-const navigation =
-    document.getElementById("navigation");
+    if (menuButton && mainNav) {
 
-
-menuButton.addEventListener(
-    "click",
-    () => {
-
-        navigation.classList.toggle("open");
-
-        menuButton.textContent =
-            navigation.classList.contains("open")
-                ? "✕"
-                : "☰";
+        menuButton.addEventListener("click", () => {
+            mainNav.classList.toggle("open");
+        });
 
     }
-);
 
 
+    /*
+     * ==========================================
+     * CONTROLE OF SPELER ZICHTBAAR IS
+     * ==========================================
+     */
 
-const playerCount =
-    document.getElementById("playerCount");
+    function spelerIsZichtbaar(speler) {
 
-const aliveCount =
-    document.getElementById("aliveCount");
+        // Handmatig verborgen
+        if (speler.zichtbaar === false) {
+            return false;
+        }
 
-const deadCount =
-    document.getElementById("deadCount");
+        // Geen tijd ingesteld = direct zichtbaar
+        if (!speler.zichtbaarVanaf) {
+            return true;
+        }
 
-const killCount =
-    document.getElementById("killCount");
+        // Vergelijk de ingestelde tijd met de huidige tijd
+        const nu = new Date();
+        const zichtbaarVanaf = new Date(speler.zichtbaarVanaf);
 
-
-
-playerCount.textContent =
-    spelers.length;
-
-
-
-aliveCount.textContent =
-    spelers.filter(
-        speler =>
-            speler.status === "levend"
-    ).length;
-
+        return nu >= zichtbaarVanaf;
+    }
 
 
-deadCount.textContent =
-    spelers.filter(
-        speler =>
-            speler.status === "dood"
-    ).length;
+    /*
+     * ==========================================
+     * DEELNEMERS OP HOME
+     * ==========================================
+     */
+
+    function laadHomeSpelers() {
+
+        const container = document.getElementById("homePlayers");
+
+        if (!container) return;
 
 
-
-killCount.textContent =
-    spelers.reduce(
-        (total, speler) =>
-            total + (speler.kills || 0),
-        0
-    );
+        // Alleen spelers die zichtbaar mogen zijn
+        const zichtbareSpelers = spelers.filter(spelerIsZichtbaar);
 
 
+        // Nog niemand zichtbaar
+        if (zichtbareSpelers.length === 0) {
 
-const homePlayers =
-    document.getElementById("homePlayers");
-
-
-
-spelers.slice(0, 4).forEach(
-    speler => {
-
-
-        const card =
-            document.createElement("a");
-
-
-        card.href =
-            "speler.html?id=" +
-            encodeURIComponent(speler.id);
-
-
-        card.className =
-            "player-card";
-
-
-        const isAlive =
-            speler.status === "levend";
-
-
-        card.innerHTML = `
-
-            <div class="player-skin">
-
-                <img
-                    src="${speler.skin}"
-                    alt="${speler.naam}">
-
-            </div>
-
-
-            <div class="player-info">
-
-                <div class="player-status ${
-                    isAlive
-                        ? "alive"
-                        : "dead"
-                }">
-
-                    <span></span>
-
-                    ${
-                        isAlive
-                            ? "LEVEND"
-                            : "DOOD"
-                    }
-
+            container.innerHTML = `
+                <div class="empty-box">
+                    🔒 Deelnemers worden binnenkort onthuld
                 </div>
+            `;
+
+            return;
+        }
 
 
-                <h3>
-                    ${speler.naam}
-                </h3>
+        // Maximaal 4 spelers op Home
+        container.innerHTML = zichtbareSpelers
+            .slice(0, 4)
+            .map(speler => {
+
+                const isLevend = speler.status === "levend";
+
+                return `
+                    <a
+                        class="player-card"
+                        href="speler.html?id=${speler.id}"
+                    >
+
+                        <img
+                            src="${speler.skin}"
+                            alt="${speler.naam}"
+                        >
+
+                        <div class="player-card-info">
+
+                            <h3>
+                                ${speler.naam}
+                            </h3>
+
+                            <p>
+                                ${speler.rol}
+                            </p>
+
+                            <span class="status ${isLevend ? "alive" : "dead"}">
+                                ${isLevend ? "● LEVEND" : "✖ DOOD"}
+                            </span>
+
+                        </div>
+
+                    </a>
+                `;
+
+            })
+            .join("");
+    }
 
 
-                <p>
-                    ${speler.rol}
-                </p>
+    /*
+     * ==========================================
+     * STATISTIEKEN
+     * ==========================================
+     */
 
-            </div>
+    function laadStatistieken() {
 
-        `;
+        if (!Array.isArray(spelers)) return;
 
 
-        homePlayers.appendChild(card);
+        // Alleen zichtbare spelers tellen mee
+        const zichtbareSpelers = spelers.filter(spelerIsZichtbaar);
+
+
+        const totaal = zichtbareSpelers.length;
+
+        const levend = zichtbareSpelers.filter(
+            speler => speler.status === "levend"
+        ).length;
+
+        const dood = zichtbareSpelers.filter(
+            speler => speler.status === "dood"
+        ).length;
+
+        const kills = zichtbareSpelers.reduce(
+            (totaal, speler) => totaal + (Number(speler.kills) || 0),
+            0
+        );
+
+
+        const totalElement =
+            document.getElementById("totalPlayers");
+
+        const aliveElement =
+            document.getElementById("alivePlayers");
+
+        const deadElement =
+            document.getElementById("deadPlayers");
+
+        const killsElement =
+            document.getElementById("totalKills");
+
+
+        if (totalElement) {
+            totalElement.textContent = totaal;
+        }
+
+        if (aliveElement) {
+            aliveElement.textContent = levend;
+        }
+
+        if (deadElement) {
+            deadElement.textContent = dood;
+        }
+
+        if (killsElement) {
+            killsElement.textContent = kills;
+        }
 
     }
-);
 
+
+    /*
+     * ==========================================
+     * ALLES LADEN
+     * ==========================================
+     */
+
+    function laadAlles() {
+
+        laadHomeSpelers();
+        laadStatistieken();
+
+    }
+
+
+    /*
+     * ==========================================
+     * DIRECT LADEN
+     * ==========================================
+     */
+
+    laadAlles();
+
+
+    /*
+     * ==========================================
+     * ELKE SECONDE CONTROLEREN
+     *
+     * Hierdoor verschijnen spelers automatisch
+     * zodra hun tijd bereikt is.
+     * ==========================================
+     */
+
+    setInterval(laadAlles, 1000);
 
 </script>
 
-
 </body>
-
 </html>
+
+Belangrijk
+
+Je "spelers.js" moet dan bijvoorbeeld zo blijven:
+
+const spelers = [
+    {
+        id: "jorn",
+        naam: "Jorn",
+        rol: "Creator",
+        status: "levend",
+        zichtbaar: true,
+        zichtbaarVanaf: "2026-09-20T22:05:00+02:00",
+        kills: 0,
+        events: 0,
+        skin: "https://mc-heads.net/avatar/Jorn/300",
+        beschrijving: "Jorn is een deelnemer van GJ Creator SMP Seizoen 1."
+    },
+
+    {
+        id: "sem",
+        naam: "Sem",
+        rol: "Creator",
+        status: "levend",
+        zichtbaar: true,
+        zichtbaarVanaf: "2026-09-20T22:05:00+02:00",
+        kills: 0,
+        events: 0,
+        skin: "https://mc-heads.net/avatar/Sem/300",
+        beschrijving: "Sem is een deelnemer van GJ Creator SMP Seizoen 1."
+    }
+];
+
+Dus vóór 22:05 zijn ze ook op Home verborgen. Om 22:05 verschijnen ze automatisch.
