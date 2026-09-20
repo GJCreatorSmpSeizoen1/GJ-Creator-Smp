@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Statistieken | GJ Creator SMP</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="header-inner">
+
+        <a href="index.html" class="brand">
+            <span>GJ CREATOR SMP</span>
+        </a>
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            aria-label="Menu openen"
+            aria-expanded="false">
+            ☰
+        </button>
+
+        <nav class="navigation" id="navigation">
+
+            <a href="index.html">Home</a>
+            <a href="spelers.html">Deelnemers</a>
+            <a href="deaths.html">Deaths</a>
+            <a href="statistieken.html">Statistieken</a>
+            <a href="tierlist.html">Tierlist</a>
+            <a href="bingo.html">Bingo</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="page-container">
+
+        <div class="hero-label">
+            SEIZOEN 1
+        </div>
+
+        <h1 class="page-title">
+            STATISTIEKEN
+        </h1>
+
+        <p class="page-description">
+            Bekijk de belangrijkste statistieken van
+            GJ Creator SMP Seizoen 1.
+        </p>
+
+
+        <!-- =================================
+             ALGEMENE STATISTIEKEN
+        ================================= -->
+
+        <div class="main-stats">
+
+            <div class="main-stat">
+
+                <span class="main-stat-icon">
+                    👥
+                </span>
+
+                <strong id="totalPlayers">
+                    0
+                </strong>
+
+                <small>
+                    Deelnemers
+                </small>
+
+            </div>
+
+
+            <div class="main-stat">
+
+                <span class="main-stat-icon">
+                    ❤️
+                </span>
+
+                <strong id="alivePlayers">
+                    0
+                </strong>
+
+                <small>
+                    Levende spelers
+                </small>
+
+            </div>
+
+
+            <div class="main-stat">
+
+                <span class="main-stat-icon">
+                    💀
+                </span>
+
+                <strong id="deadPlayers">
+                    0
+                </strong>
+
+                <small>
+                    Dode spelers
+                </small>
+
+            </div>
+
+
+            <div class="main-stat">
+
+                <span class="main-stat-icon">
+                    ⚔️
+                </span>
+
+                <strong id="totalKills">
+                    0
+                </strong>
+
+                <small>
+                    Totale kills
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             LEADERBOARDS
+        ================================= -->
+
+        <div class="stats-section">
+
+            <div class="stats-heading">
+
+                <div>
+
+                    <h2>
+                        Kill leaderboard
+                    </h2>
+
+                    <p>
+                        Deelnemers met de meeste kills.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="leaderboard"
+                id="killLeaderboard">
+            </div>
+
+        </div>
+
+
+        <div class="stats-section">
+
+            <div class="stats-heading">
+
+                <div>
+
+                    <h2>
+                        Death leaderboard
+                    </h2>
+
+                    <p>
+                        Deelnemers met de meeste geregistreerde deaths.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="leaderboard"
+                id="deathLeaderboard">
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             OVERZICHT
+        ================================= -->
+
+        <div class="stats-section">
+
+            <div class="stats-heading">
+
+                <div>
+
+                    <h2>
+                        Spelersoverzicht
+                    </h2>
+
+                    <p>
+                        Bekijk de statistieken per deelnemer.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="player-stats-table"
+                id="playerStatsTable">
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="footer-brand">
+                GJ CREATOR SMP
+            </div>
+
+            <p>
+                Seizoen 1 • Survival • Community
+            </p>
+
+        </div>
+
+        <p>
+            © 2026 GJ Creator SMP
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="spelers.js"></script>
+
+
+<script>
+
+    /* =================================
+       MOBIEL MENU
+    ================================= */
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const navigation =
+        document.getElementById("navigation");
+
+
+    menuButton.addEventListener("click", () => {
+
+        const isOpen =
+            navigation.classList.toggle("open");
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+        menuButton.textContent =
+            isOpen ? "✕" : "☰";
+
+    });
+
+
+    /* =================================
+       ELEMENTEN
+    ================================= */
+
+    const totalPlayers =
+        document.getElementById("totalPlayers");
+
+    const alivePlayers =
+        document.getElementById("alivePlayers");
+
+    const deadPlayers =
+        document.getElementById("deadPlayers");
+
+    const totalKills =
+        document.getElementById("totalKills");
+
+    const killLeaderboard =
+        document.getElementById("killLeaderboard");
+
+    const deathLeaderboard =
+        document.getElementById("deathLeaderboard");
+
+    const playerStatsTable =
+        document.getElementById("playerStatsTable");
+
+
+    /* =================================
+       STATISTIEKEN LADEN
+    ================================= */
+
+    function laadStatistieken() {
+
+        if (
+            typeof spelers === "undefined" ||
+            !Array.isArray(spelers)
+        ) {
+
+            playerStatsTable.innerHTML = `
+
+                <div class="stats-error">
+
+                    <h2>
+                        Spelers konden niet worden geladen
+                    </h2>
+
+                    <p>
+                        Controleer of spelers.js goed
+                        is toegevoegd.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        /* =================================
+           ALGEMENE STATISTIEKEN
+        ================================= */
+
+        const totaalSpelers =
+            spelers.length;
+
+
+        const levendeSpelers =
+            spelers.filter(
+                speler =>
+                    speler.status === "levend"
+            ).length;
+
+
+        const dodeSpelers =
+            spelers.filter(
+                speler =>
+                    speler.status === "dood"
+            ).length;
+
+
+        const kills =
+            spelers.reduce(
+                (totaal, speler) =>
+                    totaal +
+                    Number(speler.kills || 0),
+                0
+            );
+
+
+        totalPlayers.textContent =
+            totaalSpelers;
+
+        alivePlayers.textContent =
+            levendeSpelers;
+
+        deadPlayers.textContent =
+            dodeSpelers;
+
+        totalKills.textContent =
+            kills;
+
+
+        /* =================================
+           KILL LEADERBOARD
+        ================================= */
+
+        const killRanking =
+            [...spelers]
+                .sort(
+                    (a, b) =>
+                        Number(b.kills || 0) -
+                        Number(a.kills || 0)
+                );
+
+
+        killLeaderboard.innerHTML = "";
+
+
+        killRanking.forEach(
+            (speler, index) => {
+
+                const item =
+                    document.createElement("a");
+
+                item.href =
+                    "speler.html?id=" +
+                    encodeURIComponent(
+                        speler.id
+                    );
+
+                item.className =
+                    "leaderboard-item";
+
+
+                const positie =
+                    index + 1;
+
+
+                item.innerHTML = `
+
+                    <div class="ranking-number">
+                        ${positie}
+                    </div>
+
+                    <div class="ranking-avatar">
+
+                        <img
+                            src="${speler.skin}"
+                            alt="${speler.naam}"
+                            onerror="
+                                this.style.display='none';
+                            "
+                        >
+
+                    </div>
+
+                    <div class="ranking-name">
+
+                        <strong>
+                            ${speler.naam}
+                        </strong>
+
+                        <small>
+                            ${speler.rol || "Deelnemer"}
+                        </small>
+
+                    </div>
+
+                    <div class="ranking-value">
+
+                        <strong>
+                            ${speler.kills || 0}
+                        </strong>
+
+                        <small>
+                            kills
+                        </small>
+
+                    </div>
+
+                `;
+
+
+                killLeaderboard.appendChild(item);
+
+            }
+        );
+
+
+        /* =================================
+           DEATH LEADERBOARD
+        ================================= */
+
+        const deathRanking =
+            [...spelers]
+                .sort(
+                    (a, b) =>
+                        Number(b.deaths || 0) -
+                        Number(a.deaths || 0)
+                );
+
+
+        deathLeaderboard.innerHTML = "";
+
+
+        deathRanking.forEach(
+            (speler, index) => {
+
+                const item =
+                    document.createElement("a");
+
+                item.href =
+                    "speler.html?id=" +
+                    encodeURIComponent(
+                        speler.id
+                    );
+
+                item.className =
+                    "leaderboard-item";
+
+
+                item.innerHTML = `
+
+                    <div class="ranking-number">
+                        ${index + 1}
+                    </div>
+
+                    <div class="ranking-avatar">
+
+                        <img
+                            src="${speler.skin}"
+                            alt="${speler.naam}"
+                            onerror="
+                                this.style.display='none';
+                            "
+                        >
+
+                    </div>
+
+                    <div class="ranking-name">
+
+                        <strong>
+                            ${speler.naam}
+                        </strong>
+
+                        <small>
+                            ${speler.rol || "Deelnemer"}
+                        </small>
+
+                    </div>
+
+                    <div class="ranking-value death-value">
+
+                        <strong>
+                            ${speler.deaths || 0}
+                        </strong>
+
+                        <small>
+                            deaths
+                        </small>
+
+                    </div>
+
+                `;
+
+
+                deathLeaderboard.appendChild(item);
+
+            }
+        );
+
+
+        /* =================================
+           TABEL
+        ================================= */
+
+        playerStatsTable.innerHTML = `
+
+            <div class="table-header">
+
+                <span>
+                    Speler
+                </span>
+
+                <span>
+                    Status
+                </span>
+
+                <span>
+                    Kills
+                </span>
+
+                <span>
+                    Deaths
+                </span>
+
+                <span>
+                    Events
+                </span>
+
+            </div>
+
+        `;
+
+
+        spelers.forEach(speler => {
+
+            const row =
+                document.createElement("a");
+
+            row.href =
+                "speler.html?id=" +
+                encodeURIComponent(
+                    speler.id
+                );
+
+            row.className =
+                "stats-row";
+
+
+            const status =
+                speler.status === "levend"
+                    ? "Levend"
+                    : "Dood";
+
+
+            const statusClass =
+                speler.status === "levend"
+                    ? "table-alive"
+                    : "table-dead";
+
+
+            row.innerHTML = `
+
+                <div class="table-player">
+
+                    <img
+                        src="${speler.skin}"
+                        alt="${speler.naam}"
+                        onerror="
+                            this.style.display='none';
+                        "
+                    >
+
+                    <strong>
+                        ${speler.naam}
+                    </strong>
+
+                </div>
+
+
+                <span
+                    class="table-status ${statusClass}">
+                    ${status}
+                </span>
+
+
+                <strong>
+                    ${speler.kills || 0}
+                </strong>
+
+
+                <strong>
+                    ${speler.deaths || 0}
+                </strong>
+
+
+                <strong>
+                    ${speler.events || 0}
+                </strong>
+
+            `;
+
+
+            playerStatsTable.appendChild(row);
+
+        });
+
+    }
+
+
+    /* =================================
+       START
+    ================================= */
+
+    laadStatistieken();
+
+</script>
+
+
+<style>
+
+/* =================================
+   MAIN STATS
+================================= */
+
+.main-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+
+    margin-top: 45px;
+}
+
+.main-stat {
+
+    padding: 28px 20px;
+
+    text-align: center;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    background:
+        var(--card);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.main-stat:hover {
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(36, 124, 255, 0.35);
+}
+
+.main-stat-icon {
+
+    display: block;
+
+    margin-bottom: 12px;
+
+    font-size: 25px;
+}
+
+.main-stat strong {
+
+    display: block;
+
+    color: white;
+
+    font-size: 36px;
+
+    line-height: 1;
+}
+
+.main-stat small {
+
+    display: block;
+
+    margin-top: 8px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+
+/* =================================
+   SECTIONS
+================================= */
+
+.stats-section {
+
+    margin-top: 75px;
+}
+
+.stats-heading {
+
+    margin-bottom: 25px;
+}
+
+.stats-heading h2 {
+
+    color: white;
+
+    font-size: 30px;
+}
+
+.stats-heading p {
+
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+
+/* =================================
+   LEADERBOARD
+================================= */
+
+.leaderboard {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.leaderboard-item {
+
+    min-height: 75px;
+
+    display: grid;
+
+    grid-template-columns:
+        45px 55px 1fr auto;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding:
+        10px 16px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        13px;
+
+    background:
+        var(--card);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.leaderboard-item:hover {
+
+    transform:
+        translateX(5px);
+
+    background:
+        var(--card-hover);
+
+    border-color:
+        rgba(255, 48, 63, 0.35);
+}
+
+
+/* =================================
+   RANK
+================================= */
+
+.ranking-number {
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    color: #aeb8cb;
+
+    font-size: 12px;
+
+    font-weight: 900;
+}
+
+.leaderboard-item:nth-child(1)
+.ranking-number {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--red),
+            var(--blue)
+        );
+
+    color: white;
+}
+
+
+/* =================================
+   AVATAR
+================================= */
+
+.ranking-avatar {
+
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255, 255, 255, 0.04);
+}
+
+.ranking-avatar img {
+
+    width: 50px;
+    height: 50px;
+
+    object-fit: contain;
+}
+
+
+/* =================================
+   NAME
+================================= */
+
+.ranking-name strong {
+
+    display: block;
+
+    color: white;
+
+    font-size: 15px;
+}
+
+.ranking-name small {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =================================
+   VALUE
+================================= */
+
+.ranking-value {
+
+    text-align: right;
+}
+
+.ranking-value strong {
+
+    display: block;
+
+    color: white;
+
+    font-size: 24px;
+}
+
+.ranking-value small {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    font-weight: 900;
+}
+
+.death-value strong {
+
+    color: #ff6571;
+}
+
+
+/* =================================
+   TABEL
+================================= */
+
+.player-stats-table {
+
+    overflow: hidden;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    background:
+        var(--card);
+}
+
+.table-header,
+.stats-row {
+
+    display: grid;
+
+    grid-template-columns:
+        2fr 1fr 0.7fr 0.7fr 0.7fr;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding:
+        15px 20px;
+}
+
+.table-header {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.stats-row {
+
+    min-height: 70px;
+
+    color: #dbe3f1;
+
+    border-bottom:
+        1px solid var(--border);
+
+    transition:
+        background 0.2s ease;
+}
+
+.stats-row:last-child {
+
+    border-bottom: none;
+}
+
+.stats-row:hover {
+
+    background:
+        rgba(255, 255, 255, 0.025);
+}
+
+.table-player {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.table-player img {
+
+    width: 40px;
+    height: 40px;
+
+    object-fit: contain;
+}
+
+.table-player strong {
+
+    color: white;
+
+    font-size: 14px;
+}
+
+.table-status {
+
+    display: inline-flex;
+
+    width: fit-content;
+
+    padding:
+        5px 9px;
+
+    border-radius:
+        999px;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+}
+
+.table-alive {
+
+    color: #6dffad;
+
+    background:
+        rgba(54, 220, 123, 0.1);
+}
+
+.table-dead {
+
+    color: #ff6671;
+
+    background:
+        rgba(255, 48, 63, 0.1);
+}
+
+
+/* =================================
+   ERROR
+================================= */
+
+.stats-error {
+
+    padding: 50px;
+
+    text-align: center;
+}
+
+.stats-error h2 {
+
+    color: white;
+}
+
+.stats-error p {
+
+    margin-top: 8px;
+
+    color: var(--muted);
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 850px) {
+
+    .main-stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .table-header,
+    .stats-row {
+
+        grid-template-columns:
+            2fr 1fr 0.6fr 0.6fr 0.6fr;
+
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .main-stats {
+
+        grid-template-columns: 1fr;
+    }
+
+    .stats-section {
+
+        margin-top: 55px;
+    }
+
+    .leaderboard-item {
+
+        grid-template-columns:
+            35px 48px 1fr auto;
+
+        gap: 9px;
+
+        padding:
+            8px 10px;
+    }
+
+    .ranking-avatar,
+    .ranking-avatar img {
+
+        width: 45px;
+        height: 45px;
+    }
+
+    .ranking-value strong {
+
+        font-size: 20px;
+    }
+
+    .player-stats-table {
+
+        overflow-x: auto;
+    }
+
+    .table-header,
+    .stats-row {
+
+        min-width: 550px;
+    }
+
+}
+
+</style>
+
+</body>
+  </html>
