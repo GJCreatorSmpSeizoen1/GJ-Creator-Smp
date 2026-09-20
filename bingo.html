@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bingo | GJ Creator SMP</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="header-inner">
+
+        <a href="index.html" class="brand">
+            <span>GJ CREATOR SMP</span>
+        </a>
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            aria-label="Menu openen"
+            aria-expanded="false">
+            ☰
+        </button>
+
+        <nav class="navigation" id="navigation">
+            <a href="index.html">Home</a>
+            <a href="spelers.html">Deelnemers</a>
+            <a href="deaths.html">Deaths</a>
+            <a href="statistieken.html">Statistieken</a>
+            <a href="tierlist.html">Tierlist</a>
+            <a href="bingo.html">Bingo</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="page-container">
+
+        <div class="hero-label">
+            SEIZOEN 1
+        </div>
+
+        <h1 class="page-title">
+            MINECRAFT BINGO
+        </h1>
+
+        <p class="page-description">
+            Voltooi zoveel mogelijk Minecraft challenges.
+            Klik op een vakje wanneer de opdracht is voltooid.
+        </p>
+
+
+        <!-- ==============================
+             PROGRESS
+        =============================== -->
+
+        <div class="bingo-top">
+
+            <div class="progress-card">
+
+                <span class="progress-label">
+                    VOORTGANG
+                </span>
+
+                <strong id="progressText">
+                    0 / 25
+                </strong>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        id="progressFill">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="bingo-reset"
+                id="resetBingo">
+                Reset Bingo
+            </button>
+
+        </div>
+
+
+        <!-- ==============================
+             BINGO GRID
+        =============================== -->
+
+        <div
+            class="bingo-grid"
+            id="bingoGrid">
+        </div>
+
+
+        <!-- ==============================
+             COMPLETION MESSAGE
+        =============================== -->
+
+        <div
+            class="bingo-complete"
+            id="bingoComplete">
+
+            <div class="complete-icon">
+                🏆
+            </div>
+
+            <h2>
+                BINGO!
+            </h2>
+
+            <p>
+                Alle 25 challenges zijn voltooid!
+            </p>
+
+        </div>
+
+
+        <!-- ==============================
+             UITLEG
+        =============================== -->
+
+        <div class="bingo-info">
+
+            <h2>
+                Hoe werkt het?
+            </h2>
+
+            <p>
+                Klik op een challenge zodra deze op de SMP
+                is voltooid. Je voortgang wordt automatisch
+                opgeslagen op dit apparaat.
+            </p>
+
+            <div class="bingo-rules">
+
+                <div>
+                    <strong>25</strong>
+                    <span>Challenges</span>
+                </div>
+
+                <div>
+                    <strong>5×5</strong>
+                    <span>Bingo grid</span>
+                </div>
+
+                <div>
+                    <strong>💾</strong>
+                    <span>Automatisch opgeslagen</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="footer-brand">
+                GJ CREATOR SMP
+            </div>
+
+            <p>
+                Seizoen 1 • Survival • Community
+            </p>
+
+        </div>
+
+        <p>
+            © 2026 GJ Creator SMP
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+    /* =================================
+       MOBIEL MENU
+    ================================= */
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const navigation =
+        document.getElementById("navigation");
+
+
+    menuButton.addEventListener("click", () => {
+
+        const isOpen =
+            navigation.classList.toggle("open");
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+        menuButton.textContent =
+            isOpen ? "✕" : "☰";
+
+    });
+
+
+    /* =================================
+       BINGO CHALLENGES
+    ================================= */
+
+    const challenges = [
+
+        "Vind een diamanten",
+        "Maak een Nether Portal",
+        "Versla een Creeper",
+        "Vind een dorp",
+        "Maak een enchantment table",
+
+        "Vind een Nether Fortress",
+        "Maak een volledige ijzeren set",
+        "Krijg een naamtag",
+        "Tem een dier",
+        "Vind een jungle",
+
+        "Versla een Enderman",
+        "Maak een Netherite item",
+        "Vind een verlaten mijnschacht",
+        "Krijg een Elytra",
+        "Maak een beacon",
+
+        "Vind een Stronghold",
+        "Maak een automatische farm",
+        "Vind een amethist geode",
+        "Krijg een Totem of Undying",
+        "Bouw een geheime basis",
+
+        "Versla de Ender Dragon",
+        "Vind een Ancient City",
+        "Maak een volledig enchanted armor set",
+        "Vind een Woodland Mansion",
+        "Bouw iets boven de wolken"
+
+    ];
+
+
+    /* =================================
+       ELEMENTEN
+    ================================= */
+
+    const bingoGrid =
+        document.getElementById("bingoGrid");
+
+    const progressText =
+        document.getElementById("progressText");
+
+    const progressFill =
+        document.getElementById("progressFill");
+
+    const bingoComplete =
+        document.getElementById("bingoComplete");
+
+    const resetButton =
+        document.getElementById("resetBingo");
+
+
+    /* =================================
+       STORAGE
+    ================================= */
+
+    const storageKey =
+        "gj_creator_smp_bingo";
+
+
+    let completed =
+        JSON.parse(
+            localStorage.getItem(storageKey)
+        ) || [];
+
+
+    /* =================================
+       BINGO RENDER
+    ================================= */
+
+    function renderBingo() {
+
+        bingoGrid.innerHTML = "";
+
+
+        challenges.forEach(
+            (challenge, index) => {
+
+                const square =
+                    document.createElement("button");
+
+
+                square.className =
+                    "bingo-square";
+
+
+                if (
+                    completed.includes(index)
+                ) {
+
+                    square.classList.add(
+                        "completed"
+                    );
+
+                }
+
+
+                /*
+                 * Middenvak is een gratis vak.
+                 */
+
+                if (index === 12) {
+
+                    square.classList.add(
+                        "free-square"
+                    );
+
+                    square.innerHTML = `
+
+                        <span class="bingo-number">
+                            FREE
+                        </span>
+
+                        <span class="bingo-icon">
+                            ⭐
+                        </span>
+
+                        <span>
+                            Gratis vak
+                        </span>
+
+                    `;
+
+                } else {
+
+                    square.innerHTML = `
+
+                        <span class="bingo-number">
+                            ${index + 1}
+                        </span>
+
+                        <span class="bingo-icon">
+                            ⛏️
+                        </span>
+
+                        <span>
+                            ${challenge}
+                        </span>
+
+                    `;
+
+                }
+
+
+                square.addEventListener(
+                    "click",
+                    () => {
+
+                        if (index === 12) {
+                            return;
+                        }
+
+
+                        toggleChallenge(index);
+
+                    }
+                );
+
+
+                bingoGrid.appendChild(
+                    square
+                );
+
+            }
+        );
+
+
+        updateProgress();
+
+    }
+
+
+    /* =================================
+       TOGGLE
+    ================================= */
+
+    function toggleChallenge(index) {
+
+        if (
+            completed.includes(index)
+        ) {
+
+            completed =
+                completed.filter(
+                    item =>
+                        item !== index
+                );
+
+        } else {
+
+            completed.push(index);
+
+        }
+
+
+        localStorage.setItem(
+            storageKey,
+            JSON.stringify(completed)
+        );
+
+
+        renderBingo();
+
+    }
+
+
+    /* =================================
+       PROGRESS
+    ================================= */
+
+    function updateProgress() {
+
+        const amount =
+            completed.length;
+
+
+        progressText.textContent =
+            amount + " / 25";
+
+
+        const percentage =
+            (amount / 25) * 100;
+
+
+        progressFill.style.width =
+            percentage + "%";
+
+
+        if (amount === 25) {
+
+            bingoComplete.classList.add(
+                "show"
+            );
+
+        } else {
+
+            bingoComplete.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+
+
+    /* =================================
+       RESET
+    ================================= */
+
+    resetButton.addEventListener(
+        "click",
+        () => {
+
+            const confirmation =
+                confirm(
+                    "Weet je zeker dat je alle Bingo voortgang wilt verwijderen?"
+                );
+
+
+            if (!confirmation) {
+                return;
+            }
+
+
+            completed = [];
+
+
+            localStorage.removeItem(
+                storageKey
+            );
+
+
+            renderBingo();
+
+        }
+    );
+
+
+    /* =================================
+       START
+    ================================= */
+
+    renderBingo();
+
+</script>
+
+
+<style>
+
+/* =================================
+   BINGO TOP
+================================= */
+
+.bingo-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 40px;
+
+    margin-bottom: 25px;
+}
+
+
+.progress-card {
+
+    flex: 1;
+
+    padding: 18px 20px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    background:
+        var(--card);
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.progress-label {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+}
+
+
+.progress-card strong {
+
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: white;
+
+    font-size: 25px;
+}
+
+
+.progress-bar {
+
+    width: 100%;
+
+    height: 8px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,0.08);
+}
+
+
+.progress-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--red),
+            var(--blue)
+        );
+
+    transition:
+        width 0.3s ease;
+}
+
+
+.bingo-reset {
+
+    padding:
+        15px 20px;
+
+    border:
+        1px solid rgba(255,48,63,0.35);
+
+    border-radius:
+        12px;
+
+    background:
+        rgba(255,48,63,0.08);
+
+    color:
+        #ff6672;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.bingo-reset:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        rgba(255,48,63,0.16);
+}
+
+
+/* =================================
+   BINGO GRID
+================================= */
+
+.bingo-grid {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 10px;
+
+    padding: 12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        20px;
+
+    background:
+        var(--card);
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+.bingo-square {
+
+    position: relative;
+
+    min-height: 145px;
+
+    padding:
+        22px 12px 12px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        13px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    color:
+        var(--text);
+
+    font-family:
+        inherit;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.bingo-square:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(36,124,255,0.45);
+
+    background:
+        rgba(36,124,255,0.08);
+}
+
+
+.bingo-square.completed {
+
+    border-color:
+        var(--blue);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(36,124,255,0.2),
+            rgba(255,48,63,0.12)
+        );
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(36,124,255,0.15);
+}
+
+
+.bingo-square.completed::after {
+
+    content: "✓";
+
+    position: absolute;
+
+    top: 8px;
+    right: 10px;
+
+    width: 21px;
+    height: 21px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        var(--blue);
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 1000;
+}
+
+
+.bingo-number {
+
+    position: absolute;
+
+    top: 8px;
+    left: 10px;
+
+    color:
+        #68758b;
+
+    font-size: 9px;
+
+    font-weight: 900;
+}
+
+
+.bingo-icon {
+
+    font-size: 25px;
+}
+
+
+.free-square {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,48,63,0.18),
+            rgba(36,124,255,0.18)
+        );
+
+    border-color:
+        rgba(255,255,255,0.15);
+
+    cursor: default;
+}
+
+
+.free-square:hover {
+
+    transform: none;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,48,63,0.18),
+            rgba(36,124,255,0.18)
+        );
+}
+
+
+/* =================================
+   COMPLETE
+================================= */
+
+.bingo-complete {
+
+    display: none;
+
+    margin-top: 25px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    border:
+        1px solid rgba(36,124,255,0.35);
+
+    border-radius:
+        var(--radius);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,48,63,0.12),
+            rgba(36,124,255,0.12)
+        );
+}
+
+
+.bingo-complete.show {
+
+    display: block;
+
+    animation:
+        bingoAppear 0.4s ease;
+}
+
+
+.complete-icon {
+
+    font-size: 45px;
+
+    margin-bottom: 5px;
+}
+
+
+.bingo-complete h2 {
+
+    margin-bottom: 5px;
+
+    color: white;
+
+    font-size: 30px;
+}
+
+
+.bingo-complete p {
+
+    color:
+        var(--muted);
+}
+
+
+/* =================================
+   INFO
+================================= */
+
+.bingo-info {
+
+    margin-top: 50px;
+
+    padding: 25px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    background:
+        var(--card);
+}
+
+
+.bingo-info h2 {
+
+    margin-bottom: 10px;
+
+    color: white;
+
+    font-size: 22px;
+}
+
+
+.bingo-info > p {
+
+    max-width: 700px;
+
+    color:
+        var(--muted);
+
+    line-height: 1.7;
+}
+
+
+.bingo-rules {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+.bingo-rules div {
+
+    padding: 15px;
+
+    text-align: center;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.035);
+}
+
+
+.bingo-rules strong {
+
+    display: block;
+
+    color: white;
+
+    font-size: 23px;
+}
+
+
+.bingo-rules span {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =================================
+   ANIMATION
+================================= */
+
+@keyframes bingoAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(10px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 750px) {
+
+    .bingo-top {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .bingo-reset {
+
+        width: 100%;
+    }
+
+
+    .bingo-grid {
+
+        gap: 5px;
+
+        padding: 6px;
+
+        border-radius: 14px;
+    }
+
+
+    .bingo-square {
+
+        min-height: 105px;
+
+        padding:
+            18px 5px 7px;
+
+        border-radius: 8px;
+
+        font-size: 8px;
+
+        gap: 4px;
+    }
+
+
+    .bingo-icon {
+
+        font-size: 18px;
+    }
+
+
+    .bingo-number {
+
+        top: 5px;
+        left: 6px;
+
+        font-size: 7px;
+    }
+
+
+    .bingo-square.completed::after {
+
+        width: 16px;
+        height: 16px;
+
+        top: 5px;
+        right: 5px;
+
+        font-size: 9px;
+    }
+
+
+    .bingo-rules {
+
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .bingo-grid {
+
+        gap: 3px;
+
+        padding: 4px;
+    }
+
+
+    .bingo-square {
+
+        min-height: 82px;
+
+        font-size: 7px;
+    }
+
+
+    .bingo-icon {
+
+        font-size: 15px;
+    }
+
+}
+
+</style>
+
+</body>
+</html>
