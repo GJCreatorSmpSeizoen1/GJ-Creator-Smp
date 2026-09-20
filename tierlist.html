@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tierlist | GJ Creator SMP</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="header-inner">
+
+        <a href="index.html" class="brand">
+            <span>GJ CREATOR SMP</span>
+        </a>
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            aria-label="Menu openen"
+            aria-expanded="false">
+            ☰
+        </button>
+
+        <nav class="navigation" id="navigation">
+            <a href="index.html">Home</a>
+            <a href="spelers.html">Deelnemers</a>
+            <a href="deaths.html">Deaths</a>
+            <a href="statistieken.html">Statistieken</a>
+            <a href="tierlist.html">Tierlist</a>
+            <a href="bingo.html">Bingo</a>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="page-container">
+
+        <div class="hero-label">
+            SEIZOEN 1
+        </div>
+
+        <h1 class="page-title">
+            TIERLIST
+        </h1>
+
+        <p class="page-description">
+            Bekijk de huidige tierlist van de GJ Creator SMP.
+            Verplaats spelers naar een andere tier met de knoppen.
+        </p>
+
+
+        <!-- =================================
+             CONTROLS
+        ================================= -->
+
+        <div class="tier-controls">
+
+            <button
+                class="tier-control active"
+                data-mode="combat">
+                ⚔️ Combat
+            </button>
+
+            <button
+                class="tier-control"
+                data-mode="overall">
+                👑 Overall
+            </button>
+
+            <button
+                class="reset-button"
+                id="resetTierlist">
+                Reset
+            </button>
+
+        </div>
+
+
+        <!-- =================================
+             TIERLIST
+        ================================= -->
+
+        <div
+            class="tierlist"
+            id="tierlist">
+        </div>
+
+
+        <!-- =================================
+             LEGENDA
+        ================================= -->
+
+        <div class="tier-info">
+
+            <h2>
+                Tier systeem
+            </h2>
+
+            <div class="tier-info-grid">
+
+                <div>
+                    <strong>S</strong>
+                    <span>Top tier</span>
+                </div>
+
+                <div>
+                    <strong>A</strong>
+                    <span>Erg sterk</span>
+                </div>
+
+                <div>
+                    <strong>B</strong>
+                    <span>Sterk</span>
+                </div>
+
+                <div>
+                    <strong>C</strong>
+                    <span>Gemiddeld</span>
+                </div>
+
+                <div>
+                    <strong>D</strong>
+                    <span>Lager</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="footer-brand">
+                GJ CREATOR SMP
+            </div>
+
+            <p>
+                Seizoen 1 • Survival • Community
+            </p>
+
+        </div>
+
+        <p>
+            © 2026 GJ Creator SMP
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="spelers.js"></script>
+
+
+<script>
+
+    /* =================================
+       MOBIEL MENU
+    ================================= */
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const navigation =
+        document.getElementById("navigation");
+
+
+    menuButton.addEventListener("click", () => {
+
+        const isOpen =
+            navigation.classList.toggle("open");
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+        menuButton.textContent =
+            isOpen ? "✕" : "☰";
+
+    });
+
+
+    /* =================================
+       ELEMENTEN
+    ================================= */
+
+    const tierlistElement =
+        document.getElementById("tierlist");
+
+    const resetButton =
+        document.getElementById("resetTierlist");
+
+    const modeButtons =
+        document.querySelectorAll(".tier-control");
+
+
+    let huidigeMode = "combat";
+
+
+    /* =================================
+       DEFAULT TIERLIST
+    ================================= */
+
+    const defaultTiers = {
+
+        combat: {
+            S: [],
+            A: [],
+            B: [],
+            C: [],
+            D: []
+        },
+
+        overall: {
+            S: [],
+            A: [],
+            B: [],
+            C: [],
+            D: []
+        }
+
+    };
+
+
+    /* =================================
+       LOCAL STORAGE
+    ================================= */
+
+    function storageKey() {
+
+        return "gj_creator_smp_tierlist_" +
+            huidigeMode;
+
+    }
+
+
+    function laadTierData() {
+
+        const opgeslagen =
+            localStorage.getItem(
+                storageKey()
+            );
+
+
+        if (!opgeslagen) {
+
+            return {
+                S: [],
+                A: [],
+                B: [],
+                C: [],
+                D: []
+            };
+
+        }
+
+
+        try {
+
+            return JSON.parse(
+                opgeslagen
+            );
+
+        } catch {
+
+            return {
+                S: [],
+                A: [],
+                B: [],
+                C: [],
+                D: []
+            };
+
+        }
+
+    }
+
+
+    function slaTierDataOp(data) {
+
+        localStorage.setItem(
+            storageKey(),
+            JSON.stringify(data)
+        );
+
+    }
+
+
+    /* =================================
+       ALLE SPELERS INDELEN
+    ================================= */
+
+    function zorgDatAlleSpelersErinStaan(data) {
+
+        if (
+            typeof spelers === "undefined"
+        ) {
+
+            return data;
+
+        }
+
+
+        const geplaatst =
+            Object.values(data)
+                .flat();
+
+
+        spelers.forEach(speler => {
+
+            if (
+                !geplaatst.includes(
+                    speler.id
+                )
+            ) {
+
+                data.B.push(
+                    speler.id
+                );
+
+            }
+
+        });
+
+
+        return data;
+
+    }
+
+
+    /* =================================
+       SPELER VINDEN
+    ================================= */
+
+    function vindSpeler(id) {
+
+        if (
+            typeof spelers === "undefined"
+        ) {
+
+            return null;
+
+        }
+
+
+        return spelers.find(
+            speler =>
+                speler.id === id
+        ) || null;
+
+    }
+
+
+    /* =================================
+       SPELER VERPLAATSEN
+    ================================= */
+
+    function verplaatsSpeler(
+        spelerId,
+        nieuweTier
+    ) {
+
+        const data =
+            laadTierData();
+
+
+        Object.keys(data).forEach(
+            tier => {
+
+                data[tier] =
+                    data[tier].filter(
+                        id =>
+                            id !== spelerId
+                    );
+
+            }
+        );
+
+
+        data[nieuweTier].push(
+            spelerId
+        );
+
+
+        slaTierDataOp(data);
+
+        renderTierlist();
+
+    }
+
+
+    /* =================================
+       SPELER KAART
+    ================================= */
+
+    function maakSpeler(
+        speler,
+        tier
+    ) {
+
+        const wrapper =
+            document.createElement("div");
+
+        wrapper.className =
+            "tier-player";
+
+
+        wrapper.innerHTML = `
+
+            <img
+                src="${speler.skin}"
+                alt="${speler.naam}"
+                loading="lazy"
+                onerror="
+                    this.style.display='none';
+                "
+            >
+
+            <strong>
+                ${speler.naam}
+            </strong>
+
+            <div class="tier-player-actions">
+
+                <button
+                    data-player="${speler.id}"
+                    data-tier="S">
+                    S
+                </button>
+
+                <button
+                    data-player="${speler.id}"
+                    data-tier="A">
+                    A
+                </button>
+
+                <button
+                    data-player="${speler.id}"
+                    data-tier="B">
+                    B
+                </button>
+
+                <button
+                    data-player="${speler.id}"
+                    data-tier="C">
+                    C
+                </button>
+
+                <button
+                    data-player="${speler.id}"
+                    data-tier="D">
+                    D
+                </button>
+
+            </div>
+
+        `;
+
+
+        const buttons =
+            wrapper.querySelectorAll(
+                ".tier-player-actions button"
+            );
+
+
+        buttons.forEach(button => {
+
+            if (
+                button.dataset.tier === tier
+            ) {
+
+                button.classList.add(
+                    "selected"
+                );
+
+            }
+
+
+            button.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+                    event.stopPropagation();
+
+
+                    verplaatsSpeler(
+                        speler.id,
+                        button.dataset.tier
+                    );
+
+                }
+            );
+
+        });
+
+
+        return wrapper;
+
+    }
+
+
+    /* =================================
+       TIER RENDEREN
+    ================================= */
+
+    function renderTierlist() {
+
+        tierlistElement.innerHTML = "";
+
+
+        let data =
+            laadTierData();
+
+
+        data =
+            zorgDatAlleSpelersErinStaan(
+                data
+            );
+
+
+        slaTierDataOp(data);
+
+
+        const tiers =
+            ["S", "A", "B", "C", "D"];
+
+
+        tiers.forEach(tier => {
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "tier-row";
+
+
+            const label =
+                document.createElement("div");
+
+            label.className =
+                "tier-label tier-" +
+                tier.toLowerCase();
+
+            label.textContent =
+                tier;
+
+
+            const players =
+                document.createElement("div");
+
+            players.className =
+                "tier-players";
+
+
+            const spelerIds =
+                data[tier] || [];
+
+
+            if (
+                spelerIds.length === 0
+            ) {
+
+                players.innerHTML = `
+
+                    <div class="empty-tier">
+                        Nog geen spelers
+                    </div>
+
+                `;
+
+            } else {
+
+                spelerIds.forEach(id => {
+
+                    const speler =
+                        vindSpeler(id);
+
+
+                    if (!speler) {
+                        return;
+                    }
+
+
+                    players.appendChild(
+                        maakSpeler(
+                            speler,
+                            tier
+                        )
+                    );
+
+                });
+
+            }
+
+
+            row.appendChild(label);
+
+            row.appendChild(players);
+
+            tierlistElement.appendChild(row);
+
+        });
+
+    }
+
+
+    /* =================================
+       MODE
+    ================================= */
+
+    modeButtons.forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                modeButtons.forEach(
+                    item =>
+                        item.classList.remove(
+                            "active"
+                        )
+                );
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                huidigeMode =
+                    button.dataset.mode;
+
+
+                renderTierlist();
+
+            }
+        );
+
+    });
+
+
+    /* =================================
+       RESET
+    ================================= */
+
+    resetButton.addEventListener(
+        "click",
+        () => {
+
+            const bevestiging =
+                confirm(
+                    "Wil je de tierlist resetten?"
+                );
+
+
+            if (!bevestiging) {
+                return;
+            }
+
+
+            localStorage.removeItem(
+                storageKey()
+            );
+
+
+            renderTierlist();
+
+        }
+    );
+
+
+    /* =================================
+       START
+    ================================= */
+
+    renderTierlist();
+
+</script>
+
+
+<style>
+
+/* =================================
+   CONTROLS
+================================= */
+
+.tier-controls {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 40px;
+
+    margin-bottom: 25px;
+}
+
+.tier-control,
+.reset-button {
+
+    padding:
+        11px 17px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        var(--card);
+
+    color:
+        var(--muted);
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.tier-control:hover,
+.reset-button:hover {
+
+    transform:
+        translateY(-2px);
+
+    color: white;
+
+    border-color:
+        rgba(36, 124, 255, 0.4);
+}
+
+.tier-control.active {
+
+    background:
+        linear-gradient(
+            100deg,
+            var(--red),
+            var(--blue)
+        );
+
+    border-color:
+        transparent;
+
+    color: white;
+}
+
+.reset-button {
+
+    margin-left: auto;
+
+    color:
+        #ff6974;
+}
+
+
+/* =================================
+   TIERLIST
+================================= */
+
+.tierlist {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.tier-row {
+
+    min-height: 145px;
+
+    display: grid;
+
+    grid-template-columns:
+        90px 1fr;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        15px;
+
+    overflow: hidden;
+
+    background:
+        var(--card);
+}
+
+
+/* =================================
+   LABEL
+================================= */
+
+.tier-label {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+
+    font-size: 35px;
+
+    font-weight: 1000;
+}
+
+.tier-s {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff303f,
+            #ff5361
+        );
+}
+
+.tier-a {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5b45,
+            #ff7c5d
+        );
+}
+
+.tier-b {
+
+    background:
+        linear-gradient(
+            135deg,
+            #247cff,
+            #4da3ff
+        );
+}
+
+.tier-c {
+
+    background:
+        linear-gradient(
+            135deg,
+            #31577f,
+            #47749e
+        );
+}
+
+.tier-d {
+
+    background:
+        linear-gradient(
+            135deg,
+            #3a4050,
+            #555d6d
+        );
+}
+
+
+/* =================================
+   PLAYERS
+================================= */
+
+.tier-players {
+
+    min-width: 0;
+
+    padding:
+        15px;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-content: flex-start;
+
+    gap: 10px;
+}
+
+.empty-tier {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color:
+        #59657a;
+
+    font-size: 12px;
+}
+
+
+/* =================================
+   PLAYER
+================================= */
+
+.tier-player {
+
+    position: relative;
+
+    width: 115px;
+
+    min-height: 115px;
+
+    padding:
+        8px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    overflow: hidden;
+}
+
+.tier-player img {
+
+    width: 65px;
+    height: 65px;
+
+    object-fit: contain;
+
+    margin-bottom: 3px;
+}
+
+.tier-player strong {
+
+    color: white;
+
+    font-size: 12px;
+
+    text-align: center;
+}
+
+
+/* =================================
+   PLAYER BUTTONS
+================================= */
+
+.tier-player-actions {
+
+    display: flex;
+
+    gap: 2px;
+
+    margin-top: 7px;
+}
+
+.tier-player-actions button {
+
+    width: 17px;
+    height: 17px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 4px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    color:
+        #8c98ac;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+.tier-player-actions button:hover {
+
+    color: white;
+
+    background:
+        var(--blue);
+}
+
+.tier-player-actions button.selected {
+
+    background:
+        var(--red);
+
+    color: white;
+}
+
+
+/* =================================
+   INFO
+================================= */
+
+.tier-info {
+
+    margin-top: 55px;
+
+    padding:
+        25px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    background:
+        var(--card);
+}
+
+.tier-info h2 {
+
+    color: white;
+
+    font-size: 22px;
+
+    margin-bottom: 18px;
+}
+
+.tier-info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 10px;
+}
+
+.tier-info-grid div {
+
+    padding:
+        15px;
+
+    text-align: center;
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+}
+
+.tier-info-grid strong {
+
+    display: block;
+
+    color: white;
+
+    font-size: 24px;
+}
+
+.tier-info-grid span {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 700px) {
+
+    .tier-controls {
+
+        align-items: stretch;
+    }
+
+    .tier-control,
+    .reset-button {
+
+        flex: 1;
+
+        margin-left: 0;
+    }
+
+    .tier-row {
+
+        grid-template-columns:
+            55px 1fr;
+
+        min-height: 125px;
+    }
+
+    .tier-label {
+
+        font-size: 25px;
+    }
+
+    .tier-players {
+
+        padding: 10px;
+
+        gap: 7px;
+    }
+
+    .tier-player {
+
+        width: 90px;
+
+        min-height: 105px;
+    }
+
+    .tier-player img {
+
+        width: 55px;
+        height: 55px;
+    }
+
+    .tier-info-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .tier-player {
+
+        width: 78px;
+
+        min-height: 100px;
+    }
+
+    .tier-player img {
+
+        width: 48px;
+        height: 48px;
+    }
+
+    .tier-player-actions button {
+
+        width: 15px;
+        height: 15px;
+
+        font-size: 7px;
+    }
+
+}
+
+</style>
+
+</body>
+  </html>
