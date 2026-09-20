@@ -9,6 +9,58 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
+        /* =========================
+           COUNTDOWN
+        ========================= */
+
+        .lineup-box {
+            margin: 30px 0;
+            padding: 35px 25px;
+            text-align: center;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,48,64,.08),
+                    rgba(36,124,255,.08)
+                ),
+                var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .lineup-box h2 {
+            margin: 10px 0 5px;
+            font-size: clamp(24px, 5vw, 36px);
+        }
+
+        .lineup-box p {
+            color: var(--muted);
+            margin: 8px 0 20px;
+        }
+
+        .countdown {
+            font-size: clamp(36px, 10vw, 70px);
+            font-weight: 900;
+            letter-spacing: 4px;
+            line-height: 1;
+        }
+
+        .countdown-live {
+            color: #35e58a;
+            font-size: clamp(30px, 8vw, 55px);
+        }
+
+        .lineup-names {
+            margin-top: 18px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           PLAYERS
+        ========================= */
+
         .empty-box {
             background: var(--card);
             border: 1px solid var(--border);
@@ -82,17 +134,38 @@
             gap: 16px;
         }
 
+
+        /* =========================
+           MOBILE
+        ========================= */
+
         @media (max-width: 700px) {
+
             .home-players {
                 grid-template-columns: 1fr;
             }
+
+            .lineup-box {
+                padding: 28px 16px;
+            }
+
+            .countdown {
+                letter-spacing: 2px;
+            }
+
         }
     </style>
 </head>
 
 <body>
 
+
+<!-- =========================
+     HEADER
+========================= -->
+
 <header class="site-header">
+
     <div class="header-inner">
 
         <a href="index.html" class="brand">
@@ -100,25 +173,51 @@
             <span>CREATOR SMP</span>
         </a>
 
-        <button class="menu-button" id="menuButton">
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+        >
             ☰
         </button>
 
         <nav id="mainNav">
-            <a href="index.html" class="active">Home</a>
-            <a href="spelers.html">Deelnemers</a>
-            <a href="statistieken.html">Statistieken</a>
-            <a href="tierlist.html">Tierlist</a>
-            <a href="bingo.html">Bingo</a>
+
+            <a href="index.html" class="active">
+                Home
+            </a>
+
+            <a href="spelers.html">
+                Deelnemers
+            </a>
+
+            <a href="statistieken.html">
+                Statistieken
+            </a>
+
+            <a href="tierlist.html">
+                Tierlist
+            </a>
+
+            <a href="bingo.html">
+                Bingo
+            </a>
+
         </nav>
 
     </div>
+
 </header>
+
 
 
 <main>
 
-    <!-- HERO -->
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
     <section class="home-hero">
 
         <div class="hero-content">
@@ -138,13 +237,21 @@
             </p>
 
             <div class="hero-buttons">
-                <a href="spelers.html" class="button button-primary">
+
+                <a
+                    href="spelers.html"
+                    class="button button-primary"
+                >
                     Bekijk deelnemers
                 </a>
 
-                <a href="bingo.html" class="button">
+                <a
+                    href="bingo.html"
+                    class="button"
+                >
                     SMP Bingo
                 </a>
+
             </div>
 
         </div>
@@ -152,38 +259,116 @@
     </section>
 
 
-    <!-- STATS -->
-    <section class="stats-bar">
 
-        <div>
-            <strong id="totalPlayers">0</strong>
-            <span>Deelnemers</span>
-        </div>
+    <!-- =========================
+         LINE-UP COUNTDOWN
+    ========================= -->
 
-        <div>
-            <strong id="alivePlayers">0</strong>
-            <span>Levend</span>
-        </div>
+    <section class="home-section">
 
-        <div>
-            <strong id="deadPlayers">0</strong>
-            <span>Dood</span>
-        </div>
+        <div class="lineup-box">
 
-        <div>
-            <strong id="totalKills">0</strong>
-            <span>Kills</span>
+            <span class="hero-label">
+                VOLGENDE LINE-UP
+            </span>
+
+            <h2 id="lineupTitle">
+                Riley & Demiano
+            </h2>
+
+            <p id="lineupText">
+                Worden bekendgemaakt over:
+            </p>
+
+            <div
+                id="lineupCountdown"
+                class="countdown"
+                aria-live="polite"
+            >
+                00:00:00
+            </div>
+
+            <div class="lineup-names">
+                Nieuwe creators worden om 22:15 onthuld.
+            </div>
+
         </div>
 
     </section>
 
 
-    <!-- DEELNEMERS -->
+
+    <!-- =========================
+         STATS
+    ========================= -->
+
+    <section class="stats-bar">
+
+        <div>
+
+            <strong id="totalPlayers">
+                0
+            </strong>
+
+            <span>
+                Deelnemers
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <strong id="alivePlayers">
+                0
+            </strong>
+
+            <span>
+                Levend
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <strong id="deadPlayers">
+                0
+            </strong>
+
+            <span>
+                Dood
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <strong id="totalKills">
+                0
+            </strong>
+
+            <span>
+                Kills
+            </span>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         DEELNEMERS
+    ========================= -->
+
     <section class="home-section">
 
         <div class="section-heading">
 
             <div>
+
                 <span class="hero-label">
                     DEELNEMERS
                 </span>
@@ -191,16 +376,24 @@
                 <h2>
                     Wie doet mee?
                 </h2>
+
             </div>
 
-            <a href="spelers.html" class="button">
+
+            <a
+                href="spelers.html"
+                class="button"
+            >
                 Alle deelnemers →
             </a>
 
         </div>
 
 
-        <div id="homePlayers" class="home-players">
+        <div
+            id="homePlayers"
+            class="home-players"
+        >
 
             <div class="empty-box">
                 🔒 Deelnemers worden binnenkort onthuld
@@ -211,12 +404,17 @@
     </section>
 
 
-    <!-- SNELLE LINKS -->
+
+    <!-- =========================
+         MEER BEKIJKEN
+    ========================= -->
+
     <section class="home-section">
 
         <div class="section-heading">
 
             <div>
+
                 <span class="hero-label">
                     GJ CREATOR SMP
                 </span>
@@ -224,6 +422,7 @@
                 <h2>
                     Meer bekijken
                 </h2>
+
             </div>
 
         </div>
@@ -231,40 +430,80 @@
 
         <div class="home-links">
 
-            <a href="statistieken.html" class="home-link-card">
-                <span class="home-link-icon">📊</span>
+
+            <a
+                href="statistieken.html"
+                class="home-link-card"
+            >
+
+                <span class="home-link-icon">
+                    📊
+                </span>
 
                 <div>
-                    <h3>Statistieken</h3>
+
+                    <h3>
+                        Statistieken
+                    </h3>
+
                     <p>
                         Bekijk kills en de huidige SMP-status.
                     </p>
+
                 </div>
+
             </a>
 
 
-            <a href="tierlist.html" class="home-link-card">
-                <span class="home-link-icon">🏆</span>
+
+            <a
+                href="tierlist.html"
+                class="home-link-card"
+            >
+
+                <span class="home-link-icon">
+                    🏆
+                </span>
 
                 <div>
-                    <h3>Tierlist</h3>
+
+                    <h3>
+                        Tierlist
+                    </h3>
+
                     <p>
                         Bekijk de Combat en Overall tierlist.
                     </p>
+
                 </div>
+
             </a>
 
 
-            <a href="bingo.html" class="home-link-card">
-                <span class="home-link-icon">🎯</span>
+
+            <a
+                href="bingo.html"
+                class="home-link-card"
+            >
+
+                <span class="home-link-icon">
+                    🎯
+                </span>
 
                 <div>
-                    <h3>SMP Bingo</h3>
+
+                    <h3>
+                        SMP Bingo
+                    </h3>
+
                     <p>
                         Probeer alle bingo-opdrachten te behalen.
                     </p>
+
                 </div>
+
             </a>
+
 
         </div>
 
@@ -273,14 +512,27 @@
 </main>
 
 
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer class="site-footer">
 
     <div class="footer-inner">
 
         <div class="footer-brand">
-            <strong>GJ CREATOR SMP</strong>
-            <span>Seizoen 1 • Hardcore</span>
+
+            <strong>
+                GJ CREATOR SMP
+            </strong>
+
+            <span>
+                Seizoen 1 • Hardcore
+            </span>
+
         </div>
+
 
         <div>
             Minecraft SMP van Jorn & Sem
@@ -291,258 +543,341 @@
 </footer>
 
 
+
 <script src="spelers.js"></script>
+
 
 <script>
 
-    /*
-     * ==========================================
-     * MENU VOOR TELEFOON
-     * ==========================================
-     */
+/* =========================================
+   MENU
+========================================= */
 
-    const menuButton = document.getElementById("menuButton");
-    const mainNav = document.getElementById("mainNav");
+const menuButton =
+    document.getElementById("menuButton");
 
-    if (menuButton && mainNav) {
+const mainNav =
+    document.getElementById("mainNav");
 
-        menuButton.addEventListener("click", () => {
-            mainNav.classList.toggle("open");
-        });
 
+if (menuButton && mainNav) {
+
+    menuButton.addEventListener("click", () => {
+
+        mainNav.classList.toggle("open");
+
+    });
+
+}
+
+
+
+/* =========================================
+   SPELER ZICHTBAAR?
+========================================= */
+
+function spelerIsZichtbaar(speler) {
+
+    if (speler.zichtbaar === false) {
+        return false;
+    }
+
+    if (!speler.zichtbaarVanaf) {
+        return true;
+    }
+
+    const nu = new Date();
+
+    const zichtbaarVanaf =
+        new Date(speler.zichtbaarVanaf);
+
+    return nu >= zichtbaarVanaf;
+}
+
+
+
+/* =========================================
+   DEELNEMERS LADEN
+========================================= */
+
+function laadHomeSpelers() {
+
+    const container =
+        document.getElementById("homePlayers");
+
+    if (!container) return;
+
+
+    const zichtbareSpelers =
+        spelers.filter(spelerIsZichtbaar);
+
+
+    if (zichtbareSpelers.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty-box">
+                🔒 Deelnemers worden binnenkort onthuld
+            </div>
+        `;
+
+        return;
     }
 
 
-    /*
-     * ==========================================
-     * CONTROLE OF SPELER ZICHTBAAR IS
-     * ==========================================
-     */
+    container.innerHTML =
+        zichtbareSpelers
+        .slice(0, 4)
+        .map(speler => {
 
-    function spelerIsZichtbaar(speler) {
+            const levend =
+                speler.status === "levend";
 
-        // Handmatig verborgen
-        if (speler.zichtbaar === false) {
-            return false;
-        }
+            return `
 
-        // Geen tijd ingesteld = direct zichtbaar
-        if (!speler.zichtbaarVanaf) {
-            return true;
-        }
+                <a
+                    class="player-card"
+                    href="speler.html?id=${speler.id}"
+                >
 
-        // Vergelijk de ingestelde tijd met de huidige tijd
-        const nu = new Date();
-        const zichtbaarVanaf = new Date(speler.zichtbaarVanaf);
-
-        return nu >= zichtbaarVanaf;
-    }
-
-
-    /*
-     * ==========================================
-     * DEELNEMERS OP HOME
-     * ==========================================
-     */
-
-    function laadHomeSpelers() {
-
-        const container = document.getElementById("homePlayers");
-
-        if (!container) return;
-
-
-        // Alleen spelers die zichtbaar mogen zijn
-        const zichtbareSpelers = spelers.filter(spelerIsZichtbaar);
-
-
-        // Nog niemand zichtbaar
-        if (zichtbareSpelers.length === 0) {
-
-            container.innerHTML = `
-                <div class="empty-box">
-                    🔒 Deelnemers worden binnenkort onthuld
-                </div>
-            `;
-
-            return;
-        }
-
-
-        // Maximaal 4 spelers op Home
-        container.innerHTML = zichtbareSpelers
-            .slice(0, 4)
-            .map(speler => {
-
-                const isLevend = speler.status === "levend";
-
-                return `
-                    <a
-                        class="player-card"
-                        href="speler.html?id=${speler.id}"
+                    <img
+                        src="${speler.skin}"
+                        alt="${speler.naam}"
                     >
 
-                        <img
-                            src="${speler.skin}"
-                            alt="${speler.naam}"
+                    <div class="player-card-info">
+
+                        <h3>
+                            ${speler.naam}
+                        </h3>
+
+                        <p>
+                            ${speler.rol}
+                        </p>
+
+                        <span
+                            class="status ${levend ? "alive" : "dead"}"
                         >
+                            ${levend ? "● LEVEND" : "✖ DOOD"}
+                        </span>
 
-                        <div class="player-card-info">
+                    </div>
 
-                            <h3>
-                                ${speler.naam}
-                            </h3>
+                </a>
 
-                            <p>
-                                ${speler.rol}
-                            </p>
+            `;
 
-                            <span class="status ${isLevend ? "alive" : "dead"}">
-                                ${isLevend ? "● LEVEND" : "✖ DOOD"}
-                            </span>
+        })
+        .join("");
 
-                        </div>
-
-                    </a>
-                `;
-
-            })
-            .join("");
-    }
+}
 
 
-    /*
-     * ==========================================
-     * STATISTIEKEN
-     * ==========================================
-     */
 
-    function laadStatistieken() {
+/* =========================================
+   STATISTIEKEN
+========================================= */
 
-        if (!Array.isArray(spelers)) return;
+function laadStatistieken() {
 
-
-        // Alleen zichtbare spelers tellen mee
-        const zichtbareSpelers = spelers.filter(spelerIsZichtbaar);
+    const zichtbareSpelers =
+        spelers.filter(spelerIsZichtbaar);
 
 
-        const totaal = zichtbareSpelers.length;
+    const totaal =
+        zichtbareSpelers.length;
 
-        const levend = zichtbareSpelers.filter(
+
+    const levend =
+        zichtbareSpelers.filter(
             speler => speler.status === "levend"
         ).length;
 
-        const dood = zichtbareSpelers.filter(
+
+    const dood =
+        zichtbareSpelers.filter(
             speler => speler.status === "dood"
         ).length;
 
-        const kills = zichtbareSpelers.reduce(
-            (totaal, speler) => totaal + (Number(speler.kills) || 0),
+
+    const kills =
+        zichtbareSpelers.reduce(
+            (som, speler) =>
+                som + (Number(speler.kills) || 0),
             0
         );
 
 
-        const totalElement =
-            document.getElementById("totalPlayers");
-
-        const aliveElement =
-            document.getElementById("alivePlayers");
-
-        const deadElement =
-            document.getElementById("deadPlayers");
-
-        const killsElement =
-            document.getElementById("totalKills");
+    document.getElementById(
+        "totalPlayers"
+    ).textContent = totaal;
 
 
-        if (totalElement) {
-            totalElement.textContent = totaal;
-        }
+    document.getElementById(
+        "alivePlayers"
+    ).textContent = levend;
 
-        if (aliveElement) {
-            aliveElement.textContent = levend;
-        }
 
-        if (deadElement) {
-            deadElement.textContent = dood;
-        }
+    document.getElementById(
+        "deadPlayers"
+    ).textContent = dood;
 
-        if (killsElement) {
-            killsElement.textContent = kills;
-        }
 
+    document.getElementById(
+        "totalKills"
+    ).textContent = kills;
+
+}
+
+
+
+/* =========================================
+   LINE-UP COUNTDOWN
+========================================= */
+
+/*
+   Riley & Demiano worden:
+   20 september 2026 om 22:15
+   Nederlandse tijd bekendgemaakt.
+*/
+
+const volgendeLineup =
+    new Date(
+        "2026-09-20T22:15:00+02:00"
+    );
+
+
+function updateLineupCountdown() {
+
+    const countdown =
+        document.getElementById(
+            "lineupCountdown"
+        );
+
+    const title =
+        document.getElementById(
+            "lineupTitle"
+        );
+
+    const text =
+        document.getElementById(
+            "lineupText"
+        );
+
+
+    if (!countdown) return;
+
+
+    const nu = new Date();
+
+    const verschil =
+        volgendeLineup - nu;
+
+
+    /* =========================
+       TIJD IS BEREIKT
+    ========================= */
+
+    if (verschil <= 0) {
+
+        title.textContent =
+            "Riley & Demiano";
+
+
+        text.textContent =
+            "Zijn nu bekendgemaakt!";
+
+
+        countdown.textContent =
+            "LINE-UP LIVE";
+
+
+        countdown.classList.add(
+            "countdown-live"
+        );
+
+
+        return;
     }
 
 
-    /*
-     * ==========================================
-     * ALLES LADEN
-     * ==========================================
-     */
+    /* =========================
+       COUNTDOWN BEREKENEN
+    ========================= */
 
-    function laadAlles() {
-
-        laadHomeSpelers();
-        laadStatistieken();
-
-    }
+    const uren =
+        Math.floor(
+            verschil /
+            (1000 * 60 * 60)
+        );
 
 
-    /*
-     * ==========================================
-     * DIRECT LADEN
-     * ==========================================
-     */
+    const minuten =
+        Math.floor(
+            (verschil %
+                (1000 * 60 * 60)) /
+            (1000 * 60)
+        );
 
-    laadAlles();
+
+    const seconden =
+        Math.floor(
+            (verschil %
+                (1000 * 60)) /
+            1000
+        );
 
 
-    /*
-     * ==========================================
-     * ELKE SECONDE CONTROLEREN
-     *
-     * Hierdoor verschijnen spelers automatisch
-     * zodra hun tijd bereikt is.
-     * ==========================================
-     */
+    countdown.textContent =
+        String(uren).padStart(2, "0") +
+        ":" +
+        String(minuten).padStart(2, "0") +
+        ":" +
+        String(seconden).padStart(2, "0");
 
-    setInterval(laadAlles, 1000);
+}
+
+
+
+/* =========================================
+   ALLES LADEN
+========================================= */
+
+function laadAlles() {
+
+    laadHomeSpelers();
+
+    laadStatistieken();
+
+    updateLineupCountdown();
+
+}
+
+
+laadAlles();
+
+
+
+/* =========================================
+   LIVE UPDATES
+========================================= */
+
+setInterval(() => {
+
+    laadHomeSpelers();
+
+    laadStatistieken();
+
+    updateLineupCountdown();
+
+}, 1000);
 
 </script>
 
 </body>
 </html>
 
-Belangrijk
+Let op: je "spelers.js" moet ook Riley en Demiano bevatten met:
 
-Je "spelers.js" moet dan bijvoorbeeld zo blijven:
+zichtbaarVanaf: "2026-09-20T22:15:00+02:00"
 
-const spelers = [
-    {
-        id: "jorn",
-        naam: "Jorn",
-        rol: "Creator",
-        status: "levend",
-        zichtbaar: true,
-        zichtbaarVanaf: "2026-09-20T22:05:00+02:00",
-        kills: 0,
-        events: 0,
-        skin: "https://mc-heads.net/avatar/Jorn/300",
-        beschrijving: "Jorn is een deelnemer van GJ Creator SMP Seizoen 1."
-    },
-
-    {
-        id: "sem",
-        naam: "Sem",
-        rol: "Creator",
-        status: "levend",
-        zichtbaar: true,
-        zichtbaarVanaf: "2026-09-20T22:05:00+02:00",
-        kills: 0,
-        events: 0,
-        skin: "https://mc-heads.net/avatar/Sem/300",
-        beschrijving: "Sem is een deelnemer van GJ Creator SMP Seizoen 1."
-    }
-];
-
-Dus vóór 22:05 zijn ze ook op Home verborgen. Om 22:05 verschijnen ze automatisch.
+Dan gebeurt het automatisch: 22:05 Jorn + Sem → countdown → 22:15 Riley + Demiano.
