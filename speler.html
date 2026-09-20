@@ -1,174 +1,231 @@
-<!DOCTYPE html><html lang="nl"><head>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Deelnemers — GJ Creator SMP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
+    <title>Deelnemers | GJ Creator SMP</title>
 
-</head><body><header class="navbar"><a href="index.html" class="logo">
-    GJ <span>CREATOR SMP</span>
-</a>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="spelers.html" class="active">Deelnemers</a>
-    <a href="index.html#tijdlijn">Tijdlijn</a>
-    <a href="index.html#nieuws">Nieuws</a>
-</nav>
+<body>
 
-<a href="#" class="discord-button">
-    Discord
-</a>
+<header class="site-header">
+    <div class="header-inner">
 
-</header><main><section class="page-hero">
+        <a href="index.html" class="brand">
+            <span>GJ CREATOR SMP</span>
+        </a>
 
-    <span class="small-title">
-        SEIZOEN 1
-    </span>
+        <button
+            class="menu-button"
+            id="menuButton"
+            aria-label="Menu openen"
+            aria-expanded="false">
+            ☰
+        </button>
 
-    <h1>
-        Deelnemers
-    </h1>
+        <nav class="navigation" id="navigation">
+            <a href="index.html">Home</a>
+            <a href="spelers.html">Deelnemers</a>
+            <a href="deaths.html">Deaths</a>
+            <a href="statistieken.html">Statistieken</a>
+            <a href="tierlist.html">Tierlist</a>
+            <a href="bingo.html">Bingo</a>
+        </nav>
 
-    <p>
-        Bekijk alle deelnemers van GJ Creator SMP.
-    </p>
-
-</section>
+    </div>
+</header>
 
 
-<section class="content-section">
+<main>
 
-    <div class="players-toolbar">
+    <!-- PAGINA HEADER -->
+    <section class="page-container">
 
-        <div>
-            <span class="small-title">
-                SPELERS
-            </span>
+        <div class="section-heading">
+            <div>
+                <div class="hero-label">SEIZOEN 1</div>
 
-            <h2 id="playerAmount">
-                0 deelnemers
-            </h2>
+                <h1 class="page-title">
+                    DEELNEMERS
+                </h1>
+
+                <p class="page-description">
+                    Bekijk alle deelnemers van GJ Creator SMP Seizoen 1,
+                    hun status en hun statistieken.
+                </p>
+            </div>
         </div>
 
 
-        <div class="player-filter">
+        <!-- FILTERS -->
+        <div class="player-filters">
 
             <button
                 class="filter-button active"
-                onclick="filterPlayers('alle', this)"
-            >
+                data-filter="alle">
                 Alle
             </button>
 
             <button
                 class="filter-button"
-                onclick="filterPlayers('levend', this)"
-            >
+                data-filter="levend">
                 Levend
             </button>
 
             <button
                 class="filter-button"
-                onclick="filterPlayers('dood', this)"
-            >
+                data-filter="dood">
                 Dood
             </button>
 
         </div>
 
+
+        <!-- SPELERS -->
+        <div
+            class="players-grid"
+            id="playersGrid">
+        </div>
+
+        <div
+            class="no-players"
+            id="noPlayers"
+            style="display: none;">
+            <h2>Geen spelers gevonden</h2>
+            <p>
+                Er zijn geen spelers met deze status.
+            </p>
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="footer-inner">
+
+        <div>
+            <div class="footer-brand">
+                GJ CREATOR SMP
+            </div>
+
+            <p>
+                Seizoen 1 • Survival • Community
+            </p>
+        </div>
+
+        <p>
+            © 2026 GJ Creator SMP
+        </p>
+
     </div>
 
-
-    <div
-        class="players-grid players-page-grid"
-        id="playersGrid"
-    ></div>
-
-</section>
-
-</main><footer><div class="footer-logo">
-    GJ <span>CREATOR SMP</span>
-</div>
-
-<p>
-    Seizoen 1 • Minecraft SMP
-</p>
-
-</footer><script src="spelers.js"></script><script>
-
-const playersGrid = document.getElementById("playersGrid");
-const playerAmount = document.getElementById("playerAmount");
+</footer>
 
 
-function renderPlayers(filter = "alle") {
+<script src="spelers.js"></script>
 
-    playersGrid.innerHTML = "";
+<script>
 
+    /* ================================
+       MOBIEL MENU
+    ================================= */
 
-    const filteredPlayers = spelers.filter(speler => {
+    const menuButton = document.getElementById("menuButton");
+    const navigation = document.getElementById("navigation");
 
-        if (filter === "alle") {
-            return true;
-        }
+    menuButton.addEventListener("click", () => {
 
-        return speler.status === filter;
+        const isOpen =
+            navigation.classList.toggle("open");
 
+        menuButton.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+        menuButton.textContent =
+            isOpen ? "✕" : "☰";
     });
 
 
-    playerAmount.textContent =
-        `${filteredPlayers.length} deelnemer${filteredPlayers.length === 1 ? "" : "s"}`;
+    /* ================================
+       SPELERS
+    ================================= */
+
+    const playersGrid =
+        document.getElementById("playersGrid");
+
+    const noPlayers =
+        document.getElementById("noPlayers");
+
+    const filterButtons =
+        document.querySelectorAll(".filter-button");
 
 
-    filteredPlayers.forEach(speler => {
-
-        const card = document.createElement("a");
-
-        card.className = "player-card";
-
-        card.href = `speler.html?id=${speler.id}`;
+    let huidigeFilter = "alle";
 
 
-        card.innerHTML = `
+    function maakSpelerKaart(speler) {
 
-            <div class="player-image-container">
+        const kaart =
+            document.createElement("a");
 
-                <img
-                    src="${speler.skin}"
-                    alt="${speler.naam}"
-                    class="player-skin-image"
-                >
+        kaart.className = "player-card";
 
-                <div class="player-status ${speler.status}">
-                    ${
-                        speler.status === "levend"
-                        ? "● LEVEND"
-                        : "☠ DOOD"
-                    }
-                </div>
-
-            </div>
+        kaart.href =
+            "speler.html?id=" +
+            encodeURIComponent(speler.id);
 
 
-            <div class="player-card-content">
+        const statusTekst =
+            speler.status === "levend"
+                ? "Levend"
+                : "Dood";
 
-                <span class="player-role">
-                    ${speler.rol}
-                </span>
+
+        const statusClass =
+            speler.status === "levend"
+                ? "status-alive"
+                : "status-dead";
+
+
+        kaart.innerHTML = `
+
+            <span class="player-status ${statusClass}">
+                ${statusTekst}
+            </span>
+
+            <img
+                src="${speler.skin}"
+                alt="Minecraft skin van ${speler.naam}"
+                loading="lazy"
+                onerror="this.style.display='none';"
+            >
+
+            <div class="player-card-info">
 
                 <h3>
                     ${speler.naam}
                 </h3>
 
+                <p>
+                    ${speler.rol || "Deelnemer"}
+                </p>
 
                 <div class="player-mini-stats">
 
                     <span>
-                        ⚔ ${speler.kills}
+                        ⚔️ ${speler.kills || 0}
                     </span>
 
                     <span>
-                        ☠ ${speler.deaths}
+                        💀 ${speler.deaths || 0}
                     </span>
 
                 </div>
@@ -177,30 +234,461 @@ function renderPlayers(filter = "alle") {
 
         `;
 
+        return kaart;
+    }
 
-        playersGrid.appendChild(card);
+
+    function toonSpelers() {
+
+        playersGrid.innerHTML = "";
+
+
+        const gefilterdeSpelers =
+            spelers.filter(speler => {
+
+                if (huidigeFilter === "alle") {
+                    return true;
+                }
+
+                return speler.status === huidigeFilter;
+            });
+
+
+        if (gefilterdeSpelers.length === 0) {
+
+            noPlayers.style.display = "block";
+
+            return;
+        }
+
+
+        noPlayers.style.display = "none";
+
+
+        gefilterdeSpelers.forEach(speler => {
+
+            const kaart =
+                maakSpelerKaart(speler);
+
+            playersGrid.appendChild(kaart);
+
+        });
+    }
+
+
+    /* ================================
+       FILTERS
+    ================================= */
+
+    filterButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            filterButtons.forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+
+            button.classList.add("active");
+
+
+            huidigeFilter =
+                button.dataset.filter;
+
+
+            toonSpelers();
+
+        });
 
     });
 
+
+    /* ================================
+       START
+    ================================= */
+
+    if (
+        typeof spelers !== "undefined" &&
+        Array.isArray(spelers)
+    ) {
+
+        toonSpelers();
+
+    } else {
+
+        playersGrid.innerHTML = `
+            <div class="no-players">
+                <h2>Spelers kunnen niet worden geladen</h2>
+                <p>
+                    Controleer of <strong>spelers.js</strong>
+                    goed is toegevoegd.
+                </p>
+            </div>
+        `;
+    }
+
+</script>
+
+
+<style>
+
+/* =================================
+   SPELERS PAGINA
+================================= */
+
+.player-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin: 35px 0;
+}
+
+.filter-button {
+    padding: 11px 20px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: var(--card);
+    color: var(--muted);
+
+    font-size: 13px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.filter-button:hover {
+    transform: translateY(-2px);
+
+    color: white;
+
+    border-color:
+        rgba(36, 124, 255, 0.45);
+}
+
+.filter-button.active {
+    background:
+        linear-gradient(
+            100deg,
+            var(--red),
+            var(--blue)
+        );
+
+    color: white;
+
+    border-color: transparent;
+
+    box-shadow:
+        0 8px 25px
+        rgba(255, 48, 63, 0.18);
 }
 
 
-function filterPlayers(filter, button) {
+/* =================================
+   GRID
+================================= */
 
-    document
-        .querySelectorAll(".filter-button")
-        .forEach(btn => btn.classList.remove("active"));
+.players-grid {
+    display: grid;
 
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
 
-    button.classList.add("active");
-
-
-    renderPlayers(filter);
-
+    gap: 18px;
 }
 
 
-renderPlayers();
+/* =================================
+   PLAYER CARD
+================================= */
 
-</script></body>
+.players-grid .player-card {
+    min-height: 340px;
+
+    padding: 22px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    display: flex;
+    align-items: flex-end;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(36, 124, 255, 0.04),
+            rgba(255, 48, 63, 0.03)
+        ),
+        var(--card);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.players-grid .player-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 45%;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(5, 8, 18, 0.95)
+        );
+
+    pointer-events: none;
+}
+
+
+.players-grid .player-card:hover {
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(255, 48, 63, 0.45);
+
+    box-shadow:
+        0 20px 45px
+        rgba(0, 0, 0, 0.35),
+        0 0 30px
+        rgba(255, 48, 63, 0.08);
+}
+
+
+/* =================================
+   SKIN
+================================= */
+
+.players-grid .player-card img {
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    object-fit: contain;
+
+    left: 50%;
+    top: 25px;
+
+    transform:
+        translateX(-50%);
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+.players-grid .player-card:hover img {
+
+    transform:
+        translateX(-50%)
+        translateY(-8px)
+        scale(1.05);
+}
+
+
+/* =================================
+   INFO
+================================= */
+
+.player-card-info {
+
+    position: relative;
+
+    z-index: 5;
+
+    width: 100%;
+}
+
+.player-card-info h3 {
+
+    color: white;
+
+    font-size: 24px;
+
+    line-height: 1.1;
+}
+
+.player-card-info p {
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* =================================
+   MINI STATS
+================================= */
+
+.player-mini-stats {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 13px;
+}
+
+.player-mini-stats span {
+
+    padding: 5px 8px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(255, 255, 255, 0.06);
+
+    color: #c8d2e4;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+
+/* =================================
+   STATUS
+================================= */
+
+.players-grid .player-status {
+
+    z-index: 10;
+
+    top: 15px;
+    right: 15px;
+
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 0.5px;
+}
+
+.status-alive {
+
+    color: #6dffad;
+
+    background:
+        rgba(54, 220, 123, 0.12);
+
+    border:
+        1px solid
+        rgba(54, 220, 123, 0.2);
+}
+
+.status-dead {
+
+    color: #ff6671;
+
+    background:
+        rgba(255, 48, 63, 0.12);
+
+    border:
+        1px solid
+        rgba(255, 48, 63, 0.2);
+}
+
+
+/* =================================
+   GEEN SPELERS
+================================= */
+
+.no-players {
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    background:
+        var(--card);
+}
+
+.no-players h2 {
+
+    color: white;
+
+    font-size: 24px;
+}
+
+.no-players p {
+
+    margin-top: 8px;
+
+    color: var(--muted);
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 1000px) {
+
+    .players-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+
+    .players-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .players-grid .player-card {
+        min-height: 320px;
+    }
+
+    .player-filters {
+        width: 100%;
+    }
+
+    .filter-button {
+        flex: 1;
+    }
+}
+
+</style>
+
+</body>
 </html>
