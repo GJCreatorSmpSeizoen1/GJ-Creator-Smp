@@ -10,36 +10,39 @@
 
     <style>
         /* =========================
-           COUNTDOWN
+           LINE-UP COUNTDOWN
         ========================= */
 
         .lineup-box {
             margin: 30px 0;
-            padding: 35px 25px;
+            padding: 38px 24px;
             text-align: center;
+
             background:
                 linear-gradient(
                     135deg,
-                    rgba(255,48,64,.08),
-                    rgba(36,124,255,.08)
+                    rgba(255, 48, 64, 0.08),
+                    rgba(36, 124, 255, 0.08)
                 ),
                 var(--card);
+
             border: 1px solid var(--border);
             border-radius: var(--radius);
         }
 
         .lineup-box h2 {
-            margin: 10px 0 5px;
-            font-size: clamp(24px, 5vw, 36px);
+            margin: 14px 0 8px;
+            font-size: clamp(25px, 6vw, 38px);
         }
 
         .lineup-box p {
+            margin: 0 0 22px;
             color: var(--muted);
-            margin: 8px 0 20px;
+            font-size: 16px;
         }
 
         .countdown {
-            font-size: clamp(36px, 10vw, 70px);
+            font-size: clamp(42px, 11vw, 76px);
             font-weight: 900;
             letter-spacing: 4px;
             line-height: 1;
@@ -50,15 +53,15 @@
             font-size: clamp(30px, 8vw, 55px);
         }
 
-        .lineup-names {
-            margin-top: 18px;
+        .lineup-time {
+            margin-top: 20px;
             color: var(--muted);
             font-size: 14px;
         }
 
 
         /* =========================
-           PLAYERS
+           EMPTY BOX
         ========================= */
 
         .empty-box {
@@ -72,17 +75,26 @@
             width: 100%;
         }
 
+
+        /* =========================
+           PLAYER CARDS
+        ========================= */
+
         .player-card {
             text-decoration: none;
             color: inherit;
+
             display: flex;
             align-items: center;
             gap: 16px;
+
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
+
             padding: 16px;
-            transition: .2s ease;
+
+            transition: 0.2s ease;
         }
 
         .player-card:hover {
@@ -94,13 +106,16 @@
         .player-card img {
             width: 70px;
             height: 70px;
+
             image-rendering: pixelated;
+
             border-radius: 12px;
             background: #111827;
         }
 
         .player-card-info {
             flex: 1;
+            min-width: 0;
         }
 
         .player-card-info h3 {
@@ -146,7 +161,7 @@
             }
 
             .lineup-box {
-                padding: 28px 16px;
+                padding: 30px 16px;
             }
 
             .countdown {
@@ -156,6 +171,7 @@
         }
     </style>
 </head>
+
 
 <body>
 
@@ -173,13 +189,16 @@
             <span>CREATOR SMP</span>
         </a>
 
+
         <button
             class="menu-button"
             id="menuButton"
             type="button"
+            aria-label="Menu openen"
         >
             ☰
         </button>
+
 
         <nav id="mainNav">
 
@@ -214,300 +233,305 @@
 <main>
 
 
-    <!-- =========================
-         HERO
-    ========================= -->
+<!-- =========================
+     HERO
+========================= -->
 
-    <section class="home-hero">
+<section class="home-hero">
 
-        <div class="hero-content">
+    <div class="hero-content">
 
-            <span class="hero-label">
-                SEIZOEN 1 • HARDCORE
-            </span>
+        <span class="hero-label">
+            SEIZOEN 1 • HARDCORE
+        </span>
 
-            <h1>
-                GJ CREATOR SMP
-            </h1>
+        <h1>
+            GJ CREATOR SMP
+        </h1>
 
-            <p>
-                Eén leven. Eén wereld.
-                <br>
-                Wie overleeft seizoen 1?
-            </p>
-
-            <div class="hero-buttons">
-
-                <a
-                    href="spelers.html"
-                    class="button button-primary"
-                >
-                    Bekijk deelnemers
-                </a>
-
-                <a
-                    href="bingo.html"
-                    class="button"
-                >
-                    SMP Bingo
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
+        <p>
+            Eén leven. Eén wereld.
+            <br>
+            Wie overleeft seizoen 1?
+        </p>
 
 
-
-    <!-- =========================
-         LINE-UP COUNTDOWN
-    ========================= -->
-
-    <section class="home-section">
-
-        <div class="lineup-box">
-
-            <span class="hero-label">
-                VOLGENDE LINE-UP
-            </span>
-
-            <h2 id="lineupTitle">
-                Riley & Demiano
-            </h2>
-
-            <p id="lineupText">
-                Worden bekendgemaakt over:
-            </p>
-
-            <div
-                id="lineupCountdown"
-                class="countdown"
-                aria-live="polite"
-            >
-                00:00:00
-            </div>
-
-            <div class="lineup-names">
-                Nieuwe creators worden om 22:15 onthuld.
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         STATS
-    ========================= -->
-
-    <section class="stats-bar">
-
-        <div>
-
-            <strong id="totalPlayers">
-                0
-            </strong>
-
-            <span>
-                Deelnemers
-            </span>
-
-        </div>
-
-
-        <div>
-
-            <strong id="alivePlayers">
-                0
-            </strong>
-
-            <span>
-                Levend
-            </span>
-
-        </div>
-
-
-        <div>
-
-            <strong id="deadPlayers">
-                0
-            </strong>
-
-            <span>
-                Dood
-            </span>
-
-        </div>
-
-
-        <div>
-
-            <strong id="totalKills">
-                0
-            </strong>
-
-            <span>
-                Kills
-            </span>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         DEELNEMERS
-    ========================= -->
-
-    <section class="home-section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <span class="hero-label">
-                    DEELNEMERS
-                </span>
-
-                <h2>
-                    Wie doet mee?
-                </h2>
-
-            </div>
-
+        <div class="hero-buttons">
 
             <a
                 href="spelers.html"
-                class="button"
+                class="button button-primary"
             >
-                Alle deelnemers →
+                Bekijk deelnemers
             </a>
-
-        </div>
-
-
-        <div
-            id="homePlayers"
-            class="home-players"
-        >
-
-            <div class="empty-box">
-                🔒 Deelnemers worden binnenkort onthuld
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================
-         MEER BEKIJKEN
-    ========================= -->
-
-    <section class="home-section">
-
-        <div class="section-heading">
-
-            <div>
-
-                <span class="hero-label">
-                    GJ CREATOR SMP
-                </span>
-
-                <h2>
-                    Meer bekijken
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div class="home-links">
-
-
-            <a
-                href="statistieken.html"
-                class="home-link-card"
-            >
-
-                <span class="home-link-icon">
-                    📊
-                </span>
-
-                <div>
-
-                    <h3>
-                        Statistieken
-                    </h3>
-
-                    <p>
-                        Bekijk kills en de huidige SMP-status.
-                    </p>
-
-                </div>
-
-            </a>
-
-
-
-            <a
-                href="tierlist.html"
-                class="home-link-card"
-            >
-
-                <span class="home-link-icon">
-                    🏆
-                </span>
-
-                <div>
-
-                    <h3>
-                        Tierlist
-                    </h3>
-
-                    <p>
-                        Bekijk de Combat en Overall tierlist.
-                    </p>
-
-                </div>
-
-            </a>
-
 
 
             <a
                 href="bingo.html"
-                class="home-link-card"
+                class="button"
             >
-
-                <span class="home-link-icon">
-                    🎯
-                </span>
-
-                <div>
-
-                    <h3>
-                        SMP Bingo
-                    </h3>
-
-                    <p>
-                        Probeer alle bingo-opdrachten te behalen.
-                    </p>
-
-                </div>
-
+                SMP Bingo
             </a>
-
 
         </div>
 
-    </section>
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     VOLGENDE LINE-UP
+========================= -->
+
+<section class="home-section">
+
+    <div class="lineup-box">
+
+        <span class="hero-label">
+            VOLGENDE LINE-UP
+        </span>
+
+
+        <h2 id="lineupTitle">
+            Nieuwe creators
+        </h2>
+
+
+        <p id="lineupText">
+            Worden binnenkort bekendgemaakt
+        </p>
+
+
+        <div
+            id="lineupCountdown"
+            class="countdown"
+            aria-live="polite"
+        >
+            00:00:00
+        </div>
+
+
+        <div class="lineup-time">
+            Onthulling om 22:30
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<section class="stats-bar">
+
+    <div>
+
+        <strong id="totalPlayers">
+            0
+        </strong>
+
+        <span>
+            Deelnemers
+        </span>
+
+    </div>
+
+
+    <div>
+
+        <strong id="alivePlayers">
+            0
+        </strong>
+
+        <span>
+            Levend
+        </span>
+
+    </div>
+
+
+    <div>
+
+        <strong id="deadPlayers">
+            0
+        </strong>
+
+        <span>
+            Dood
+        </span>
+
+    </div>
+
+
+    <div>
+
+        <strong id="totalKills">
+            0
+        </strong>
+
+        <span>
+            Kills
+        </span>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     DEELNEMERS
+========================= -->
+
+<section class="home-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="hero-label">
+                DEELNEMERS
+            </span>
+
+            <h2>
+                Wie doet mee?
+            </h2>
+
+        </div>
+
+
+        <a
+            href="spelers.html"
+            class="button"
+        >
+            Alle deelnemers →
+        </a>
+
+    </div>
+
+
+    <div
+        id="homePlayers"
+        class="home-players"
+    >
+
+        <div class="empty-box">
+            🔒 Deelnemers worden binnenkort onthuld
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     MEER BEKIJKEN
+========================= -->
+
+<section class="home-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="hero-label">
+                GJ CREATOR SMP
+            </span>
+
+            <h2>
+                Meer bekijken
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="home-links">
+
+
+        <a
+            href="statistieken.html"
+            class="home-link-card"
+        >
+
+            <span class="home-link-icon">
+                📊
+            </span>
+
+            <div>
+
+                <h3>
+                    Statistieken
+                </h3>
+
+                <p>
+                    Bekijk kills en de huidige SMP-status.
+                </p>
+
+            </div>
+
+        </a>
+
+
+
+        <a
+            href="tierlist.html"
+            class="home-link-card"
+        >
+
+            <span class="home-link-icon">
+                🏆
+            </span>
+
+            <div>
+
+                <h3>
+                    Tierlist
+                </h3>
+
+                <p>
+                    Bekijk de Combat en Overall tierlist.
+                </p>
+
+            </div>
+
+        </a>
+
+
+
+        <a
+            href="bingo.html"
+            class="home-link-card"
+        >
+
+            <span class="home-link-icon">
+                🎯
+            </span>
+
+            <div>
+
+                <h3>
+                    SMP Bingo
+                </h3>
+
+                <p>
+                    Probeer alle bingo-opdrachten te behalen.
+                </p>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</section>
 
 </main>
 
@@ -597,7 +621,7 @@ function spelerIsZichtbaar(speler) {
 
 
 /* =========================================
-   DEELNEMERS LADEN
+   DEELNEMERS
 ========================================= */
 
 function laadHomeSpelers() {
@@ -632,6 +656,7 @@ function laadHomeSpelers() {
             const levend =
                 speler.status === "levend";
 
+
             return `
 
                 <a
@@ -644,6 +669,7 @@ function laadHomeSpelers() {
                         alt="${speler.naam}"
                     >
 
+
                     <div class="player-card-info">
 
                         <h3>
@@ -653,6 +679,7 @@ function laadHomeSpelers() {
                         <p>
                             ${speler.rol}
                         </p>
+
 
                         <span
                             class="status ${levend ? "alive" : "dead"}"
@@ -678,6 +705,9 @@ function laadHomeSpelers() {
 ========================================= */
 
 function laadStatistieken() {
+
+    if (!Array.isArray(spelers)) return;
+
 
     const zichtbareSpelers =
         spelers.filter(spelerIsZichtbaar);
@@ -731,20 +761,50 @@ function laadStatistieken() {
 
 
 /* =========================================
-   LINE-UP COUNTDOWN
+   VOLGENDE 22:30 BEREKENEN
 ========================================= */
 
-/*
-   Riley & Demiano worden:
-   20 september 2026 om 22:15
-   Nederlandse tijd bekendgemaakt.
-*/
+function krijgVolgendeLineup() {
 
-const volgendeLineup =
-    new Date(
-        "2026-09-20T22:15:00+02:00"
-    );
+    const nu = new Date();
 
+
+    /*
+     * Maak vandaag 22:30.
+     */
+
+    const doel =
+        new Date(nu);
+
+    doel.setHours(22, 30, 0, 0);
+
+
+    /*
+     * Als 22:30 vandaag al voorbij is,
+     * gebruik dan morgen 22:30.
+     */
+
+    if (doel <= nu) {
+
+        doel.setDate(
+            doel.getDate() + 1
+        );
+
+    }
+
+
+    return doel;
+}
+
+
+let volgendeLineup =
+    krijgVolgendeLineup();
+
+
+
+/* =========================================
+   COUNTDOWN
+========================================= */
 
 function updateLineupCountdown() {
 
@@ -753,10 +813,12 @@ function updateLineupCountdown() {
             "lineupCountdown"
         );
 
+
     const title =
         document.getElementById(
             "lineupTitle"
         );
+
 
     const text =
         document.getElementById(
@@ -769,26 +831,26 @@ function updateLineupCountdown() {
 
     const nu = new Date();
 
-    const verschil =
+    let verschil =
         volgendeLineup - nu;
 
 
-    /* =========================
-       TIJD IS BEREIKT
-    ========================= */
+    /*
+     * Als de tijd bereikt is
+     */
 
     if (verschil <= 0) {
 
         title.textContent =
-            "Riley & Demiano";
+            "LINE-UP LIVE";
 
 
         text.textContent =
-            "Zijn nu bekendgemaakt!";
+            "De nieuwe creators zijn bekendgemaakt.";
 
 
         countdown.textContent =
-            "LINE-UP LIVE";
+            "22:30";
 
 
         countdown.classList.add(
@@ -796,13 +858,31 @@ function updateLineupCountdown() {
         );
 
 
+        /*
+         * Na een korte controle wordt
+         * de volgende dag klaargezet.
+         */
+
+        setTimeout(() => {
+
+            volgendeLineup =
+                krijgVolgendeLineup();
+
+
+            countdown.classList.remove(
+                "countdown-live"
+            );
+
+        }, 5000);
+
+
         return;
     }
 
 
-    /* =========================
-       COUNTDOWN BEREKENEN
-    ========================= */
+    /*
+     * Uren
+     */
 
     const uren =
         Math.floor(
@@ -811,6 +891,10 @@ function updateLineupCountdown() {
         );
 
 
+    /*
+     * Minuten
+     */
+
     const minuten =
         Math.floor(
             (verschil %
@@ -818,6 +902,10 @@ function updateLineupCountdown() {
             (1000 * 60)
         );
 
+
+    /*
+     * Seconden
+     */
 
     const seconden =
         Math.floor(
@@ -858,7 +946,7 @@ laadAlles();
 
 
 /* =========================================
-   LIVE UPDATES
+   ELKE SECONDE UPDATEN
 ========================================= */
 
 setInterval(() => {
@@ -876,8 +964,16 @@ setInterval(() => {
 </body>
 </html>
 
-Let op: je "spelers.js" moet ook Riley en Demiano bevatten met:
+Belangrijk: in "spelers.js" moet Riley en Demiano óók op 22:30 staan als je wilt dat ze precies dan verschijnen:
 
-zichtbaarVanaf: "2026-09-20T22:15:00+02:00"
+zichtbaarVanaf: "2026-09-20T22:30:00+02:00"
 
-Dan gebeurt het automatisch: 22:05 Jorn + Sem → countdown → 22:15 Riley + Demiano.
+En op je Home zie je dus alleen:
+
+VOLGENDE LINE-UP
+Nieuwe creators
+Worden binnenkort bekendgemaakt
+00:19:xx (als het 22:10 is)
+Onthulling om 22:30
+
+Er wordt nergens vooraf gezegd wie het zijn.
